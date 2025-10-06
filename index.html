@@ -2,103 +2,198 @@
 <html lang="uk">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>KidReady — скоро</title>
+  <meta name="description" content="Зроби шкільне життя дитини простим для себе і заохочуй свою малечу! KidReady — скоро в App Store та Google Play." />
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <style>
-    :root{ --brand:#ff9500; --text:#1d1d1f; }
+    :root{
+      --bg:#ffffff;
+      --text:#111827;         /* gray-900 */
+      --muted:#6b7280;        /* gray-500 */
+      --brand:#f59e0b;        /* amber-500 */
+      --brand-600:#d97706;    /* amber-600 */
+      --ring:#f59e0b20;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --font:-apple-system, "SF Pro Text","SF Pro Display", Inter, system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; background:#fff; color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      /* верхній контент ближче до верху сторінки */
-      padding:clamp(12px,3vw,28px);
+      margin:0; background:var(--bg); color:var(--text); font-family:var(--font);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    .wrap{position:relative; z-index:1; width:100%; max-width:920px; margin:clamp(8px,5vh,56px) auto 0; text-align:center}
-
-    /* БІЛЬШЕ ЛОГО І ВИЩЕ */
-    .logo{display:flex; flex-direction:column; align-items:center; gap:14px; margin:0 0 8px}
-    .logo img{width:clamp(90px,10vw,150px); height:auto}
-
-    h1{margin:0 0 18px; font-size:clamp(36px,6vw,64px); font-weight:700; color:var(--brand)}
-    .lead{margin:0 0 18px; font-size:clamp(18px,2.8vw,32px); font-weight:700; line-height:1.2}
-    .sub{margin:0 0 8px; font-size:clamp(16px,2.2vw,22px); color:#3a3a3c}
-
-    .icons{font-size:36px; margin: 4px 0 28px} /* БІЛЬШИЙ ВІДСТУП ДО ПІДПИСУ */
-
+    .wrap{
+      min-height:100dvh; display:flex; flex-direction:column; align-items:center;
+      padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+      position:relative; overflow:hidden;
+    }
+    /* ─── Header ───────────────────────────────────────────────────────────── */
+    .logo-top{
+      width:min(86px, 18vw);
+      height:auto;
+      margin: 8px auto 4px;
+      display:block;
+      filter: drop-shadow(0 4px 10px rgba(245,158,11,.25));
+    }
+    .brand{
+      font-weight:800; font-size: clamp(36px, 6vw, 64px);
+      line-height:1.05; letter-spacing:.2px; color:var(--brand);
+      text-align:center; margin: 6px 0 18px;
+    }
+    .tagline{
+      text-align:center; font-weight:800;
+      font-size: clamp(20px, 3.4vw, 36px);
+      line-height:1.25; margin: 0 auto 18px; max-width: 1100px;
+    }
+    .sub{
+      text-align:center; color:var(--muted); font-size:clamp(16px, 2.1vw, 20px);
+      margin: 10px 0 18px;
+    }
+    .stores{ display:flex; gap:14px; align-items:center; justify-content:center; margin: 6px 0 26px; }
+    .stores svg{ width:30px; height:30px; opacity:.85 }
+    /* ─── Form ─────────────────────────────────────────────────────────────── */
     .label{
-      margin: 0 0 10px;
-      font-size:clamp(13px,1.6vw,16px);
-      font-weight:600;
-      color:#6e6e73;
-      letter-spacing:.015em;
+      text-align:center; font-weight:700; color:#374151; /* gray-700 */
+      margin: 2px 0 10px; letter-spacing:.2px;
     }
-
-    .form{display:flex; gap:12px; justify-content:center}
-    .form input{
-      appearance:none; border:1px solid #e5e5e7; border-radius:14px;
-      padding:14px 18px; min-width:min(70vw,420px); font-size:16px; outline:none;
+    .form{
+      display:flex; gap:12px; align-items:center; justify-content:center;
+      width:100%; max-width:820px; margin:0 auto 16px;
+    }
+    .form input[type="email"]{
+      flex:1; height:54px; border:1.5px solid #e5e7eb; /* gray-200 */
+      border-radius:var(--radius); padding:0 18px; font-size:16px; outline:none;
+      background:#fff; box-shadow:inset 0 1px 0 rgba(0,0,0,.02);
+    }
+    .form input[type="email"]:focus{
+      border-color:var(--brand);
+      box-shadow:0 0 0 4px var(--ring);
     }
     .form button{
-      border:0; background:var(--brand); color:#fff; padding:14px 20px;
-      border-radius:14px; font-weight:600; cursor:pointer
+      height:54px; padding:0 22px; border:none; border-radius:var(--radius);
+      background:var(--brand); color:#fff; font-weight:700; font-size:16px; cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:.15s transform ease, .15s background-color ease;
     }
-
-    /* ── Редіки по краях + легка анімація ───────────────────────── */
-    .rediki{
-      position:fixed; z-index:0; pointer-events:none; user-select:none;
-      filter:drop-shadow(0 2px 12px rgba(0,0,0,.06)); opacity:.98;
-      --tilt: rotate(0deg); --bob: 12px;
-      animation: bob 6s ease-in-out infinite;
+    .form button:hover{ background:var(--brand-600); transform: translateY(-1px) }
+    .form button:active{ transform: translateY(0) }
+    .hint{ text-align:center; color:var(--muted); font-size:14px; margin-top:6px }
+    /* ─── Rediki in corners ───────────────────────────────────────────────── */
+    .kid{
+      position:absolute; z-index:-1; user-select:none; pointer-events:none;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.12));
     }
-    .r-blue   {left:-60px;  top:-40px;   width:220px; --tilt: rotate(-12deg); --bob: 12px; animation-duration: 6.4s; animation-delay: .1s;}
-    .r-green  {right:-60px; top:-20px;   width:220px; --tilt: rotate(10deg);  --bob: 10px; animation-duration: 6.1s; animation-delay: .4s;}
-    .r-yellow {left:-40px;  bottom:-30px; width:220px; --tilt: rotate(8deg);   --bob: 11px; animation-duration: 6.7s; animation-delay: .25s;}
-    .r-orange {right:-50px; bottom:-40px; width:220px; --tilt: rotate(-8deg);  --bob: 13px; animation-duration: 6.3s; animation-delay: .55s;}
-    @keyframes bob{ 0%,100%{transform:var(--tilt) translateY(0)} 50%{transform:var(--tilt) translateY(calc(-1*var(--bob)))} }
-    @media (prefers-reduced-motion:reduce){ .rediki{animation:none} }
-
-    /* Копірайт унизу */
-    footer{
-      margin:56px auto 8px; max-width:920px; text-align:center;
-      font-size:12.5px; color:#8e8e93;
+    .kid--tl{ left:-120px; top:-60px; width:min(32vw, 320px); }
+    .kid--tr{ right:-120px; top:-40px; width:min(32vw, 320px); transform: scaleX(-1); }
+    .kid--bl{ left:-90px; bottom:-70px; width:min(28vw, 280px); }
+    .kid--br{ right:-90px; bottom:-70px; width:min(28vw, 280px); }
+    @media (max-width: 900px){
+      .kid--tl{ left:-140px; top:-90px; width:42vw }
+      .kid--tr{ right:-140px; top:-90px; width:42vw }
+      .kid--bl{ left:-120px; bottom:-100px; width:42vw }
+      .kid--br{ right:-120px; bottom:-100px; width:42vw }
     }
-
-    @media (max-width:600px){
-      .r-blue   {left:-70px;  top:-50px;   width:160px}
-      .r-green  {right:-70px; top:-40px;   width:160px}
-      .r-yellow {left:-70px;  bottom:-50px; width:160px}
-      .r-orange {right:-70px; bottom:-60px; width:160px}
-      .form{flex-direction:column; align-items:center}
-      .form input{min-width:unset; width:min(90vw,420px)}
-      .icons{font-size:32px; margin-bottom:24px}
+    @media (max-width: 640px){
+      .form{ flex-direction:column; }
+      .form button{ width:100% }
     }
+    /* ─── Toast ───────────────────────────────────────────────────────────── */
+    .toast{
+      position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+      background:#111827; color:#fff; padding:12px 16px; border-radius:12px;
+      box-shadow:0 14px 40px rgba(0,0,0,.22); font-weight:600; z-index:1000;
+    }
+    .toast.show{ animation:fadein .2s ease, fadeout .25s ease 2.9s forwards }
+    @keyframes fadein{from{opacity:0; transform:translate(-50%,8px)} to{opacity:1; transform:translate(-50%,0)}}
+    @keyframes fadeout{to{opacity:0; transform:translate(-50%,8px)}}
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer{ margin-top:auto; padding-top:24px; color:#9ca3af; font-size:14px }
   </style>
 </head>
 <body>
-  <!-- 4 окремі PNG з прозорим фоном -->
-  <img class="rediki r-blue"   src="assets/rediki-blue.png"   alt="" loading="lazy" aria-hidden="true">
-  <img class="rediki r-green"  src="assets/rediki-green.png"  alt="" loading="lazy" aria-hidden="true">
-  <img class="rediki r-yellow" src="assets/rediki-yellow.png" alt="" loading="lazy" aria-hidden="true">
-  <img class="rediki r-orange" src="assets/rediki-orange.png" alt="" loading="lazy" aria-hidden="true">
-
   <main class="wrap">
-    <div class="logo">
-      <img src="assets/logo.png?v=4" alt="KidReady">
-      <h1>KidReady</h1>
+    <!-- corner Rediki -->
+    <img class="kid kid--tl" src="assets/rediki-blue.png"   alt="">
+    <img class="kid kid--tr" src="assets/rediki-green.png"  alt="">
+    <img class="kid kid--bl" src="assets/rediki-yellow.png" alt="">
+    <img class="kid kid--br" src="assets/rediki-red.png"    alt="">
+
+    <!-- top logo + brand -->
+    <img class="logo-top" src="assets/logo.png" alt="KidReady логотип" />
+    <h1 class="brand">KidReady</h1>
+
+    <!-- tagline -->
+    <h2 class="tagline">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</h2>
+    <p class="sub">Скоро тут ти знайдеш додаток для</p>
+
+    <!-- store icons -->
+    <div class="stores" aria-label="Платформи">
+      <!-- Apple -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.465 2.21-1.205 3.01-.77.83-2.02 1.47-3.07 1.38-.12-1.08.52-2.24 1.26-3.03.81-.87 2.17-1.52 3.02-1.36zm3.08 16.04c-.53 1.25-.78 1.79-1.46 2.88-.95 1.53-2.29 3.42-3.96 3.45-1.49.03-1.87-.99-3.9-.99-2.03 0-2.45.96-3.94 1-1.67.04-2.94-1.65-3.9-3.17C1.47 18.4.1 14.01 2.03 10.88c1.03-1.71 2.87-2.79 4.88-2.82 1.52-.03 2.95 1.02 3.9 1.02.95 0 2.7-1.26 4.56-1.08.78.03 2.97.32 4.38 2.4-.11.07-2.62 1.53-2.61 4.56 0 3.61 3.2 4.82 3.29 4.88z"/></svg>
+      <!-- Android -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.73-3.02a.5.5 0 10-.87-.5l-1.8 3.14A7.56 7.56 0 0012 8.24a7.55 7.55 0 00-4.66 1.86L5.54 5.96a.5.5 0 10-.87.5l1.76 3.06A6.7 6.7 0 004.5 13.5V18a1.5 1.5 0 001.5 1.5h.5V22a1 1 0 002 0v-2.5h7V22a1 1 0 002 0v-2.5h.5A1.5 1.5 0 0019.5 18v-4.5a6.7 6.7 0 00-1.9-4.02zM8 12.5a1 1 0 110-2 1 1 0 010 2zm8 0a1 1 0 110-2 1 1 0 010 2z"/></svg>
     </div>
 
-    <p class="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
-    <p class="sub">Скоро тут ти знайдеш додаток для</p>
-    <div class="icons"> 🤖</div>
-
+    <!-- subscribe -->
     <div class="label">Дізнатись першим</div>
-    <form class="form" onsubmit="event.preventDefault(); alert('Дякуємо! Незабаром додамо справжню підписку.');">
-      <input type="email" placeholder="Введіть свою електронну адресу" required>
+
+    <form id="notify-form"
+          class="form"
+          action="https://formsubmit.co/ajax/admin@kidready.com.ua"
+          method="POST">
+      <input type="email" name="email" placeholder="Введіть свою електронну адресу" required />
+      <!-- honeypot -->
+      <input type="text" name="_honey" style="display:none">
+      <!-- email settings -->
+      <input type="hidden" name="_subject" value="KidReady — новий підписник">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <!-- autoresponse -->
+      <input type="hidden" name="_autoresponse"
+             value="Дякуємо, що підписались на KidReady! Ми напишемо, щойно додаток з’явиться в App Store та Google Play. Гарного дня!">
       <button type="submit">Надіслати</button>
     </form>
+
+    <p class="hint">Ми поважаємо приватність. Твою адресу буде використано лише для анонсу запуску.</p>
+
+    <!-- toast -->
+    <div id="toast" class="toast" hidden>
+      Дякуємо! Перевір пошту — ми надіслали підтвердження.
+    </div>
+
+    <footer>© 2025 KidReady • kidready.com.ua</footer>
   </main>
 
-  <footer>© 2025 KidReady. Усі права захищено.</footer>
+  <script>
+    (function () {
+      const form = document.getElementById('notify-form');
+      const toast = document.getElementById('toast');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.reset();
+            toast.hidden = false;
+            toast.classList.add('show');
+            setTimeout(() => { toast.hidden = true; toast.classList.remove('show'); }, 3200);
+          } else {
+            alert('Хмм, не вдалось надіслати форму. Спробуй ще раз пізніше 🙏');
+          }
+        } catch {
+          alert('Зʼєднання зірвалось. Будь ласка, спробуй ще раз.');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
