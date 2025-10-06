@@ -1,181 +1,198 @@
 <!doctype html>
 <html lang="uk">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>KidReady — скоро</title>
-  <meta name="color-scheme" content="light only" />
+  <meta name="color-scheme" content="light only"/>
+
   <style>
-    /* ---------- БАЗА / РЕСПОНСИВ ---------- */
+    /* ================= BASE / VARIABLES ================= */
     :root{
-      /* Позиція фіолетового “підглядача” по вертикалі (можеш крутити) */
-      --purple-top: 54vh;
-      /* Розмір логотипа та відступ після нього (мін/ідеал/макс) */
-      --logo-size: clamp(56px, 8vw, 84px);      /* ← РОЗМІР ЛОГО */
-      --logo-gap:  clamp(10px, 1.8vw, 16px);    /* ← ВІДСТУП під лого */
-    }
-    html,body{height:100%}
-    html{box-sizing:border-box; overflow-x:hidden}
-    *,*:before,*:after{box-sizing:inherit}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "Segoe UI",
-                   Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:#fff;
-      color:#111;
-      -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
-    }
-    .wrap{
-      max-width:1100px;
-      margin-inline:auto;
-      padding:clamp(16px,4vw,40px);
-      text-align:center;
-      position:relative;
-      z-index:1;
+      /* де з’являється фіолетовий підглядач по вертикалі */
+      --purple-top: 60vh;
+
+      /* РОЗМІР ЛОГО та ВІДСТУП нижче (збільшено ~ у 3 рази) */
+      --logo-size: clamp(56px, 8vw, 84px);
+      --logo-gap:  clamp(30px, 6vw, 54px);  /* ← більший за попередній */
     }
 
-    /* ---------- ЛОГОТИП ---------- */
+    html, body { height: 100%; }
+    html { box-sizing: border-box; overflow-x: hidden; }
+    *, *::before, *::after { box-sizing: inherit; }
+
+    /* робимо "ліпучий" футер */
+    body{
+      margin: 0;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Text",
+                   "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: #fff;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    main.wrap{
+      flex: 1 0 auto;
+      max-width: 1100px;
+      margin-inline: auto;
+      padding: clamp(16px, 4vw, 40px);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ================= LOGO & TITLES ================= */
     .logo{
-      width:var(--logo-size);
-      height:auto;
-      display:block;
-      margin:0 auto var(--logo-gap);
-      user-select:none;
+      width: var(--logo-size);
+      height: auto;
+      display: block;
+      margin: 0 auto var(--logo-gap);
+      user-select: none;
     }
     .brand{
-      font-weight:800;
-      letter-spacing:.3px;
-      color:#ff9300;
-      margin:0 0 clamp(12px, 2.2vw, 18px);
-      font-size:clamp(36px, 7vw, 72px);
-      line-height:1.05;
+      margin: 0 0 clamp(12px, 2.2vw, 18px);
+      font-size: clamp(36px, 7vw, 72px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: .3px;
+      color: #ff9300;
     }
-
-    /* ---------- ЗАГОЛОВОК / ТЕКСТ ---------- */
     h2{
-      margin:0 auto clamp(14px,3.2vw,24px);
-      max-width:25ch;
-      font-size:clamp(20px, 3.8vw, 34px);
-      line-height:1.18;
-      font-weight:800;
-      color:#1b1b1f;
+      margin: 0 auto clamp(14px,3.2vw,24px);
+      max-width: 25ch;
+      font-size: clamp(20px,3.8vw,34px);
+      line-height: 1.18;
+      font-weight: 800;
+      color: #1b1b1f;
     }
     .sub{
-      margin:0 auto clamp(10px, 2.6vw, 18px);
-      font-size:clamp(16px, 2.8vw, 22px);
-      opacity:.85;
-    }
-    .icons{
-      font-size:clamp(28px, 5.6vw, 40px);
-      margin-bottom: clamp(8px, 1.8vw, 12px);
-    }
-    .hint{
-      font-weight:700;
-      margin:0 0 clamp(10px, 2.4vw, 16px);
-      opacity:.9;
+      margin: 0 auto clamp(10px,2.6vw,18px);
+      font-size: clamp(16px,2.8vw,22px);
+      opacity: .85;
     }
 
-    /* ---------- ФОРМА ---------- */
+    /* ================= PLATFORM ICONS (SVG) ================= */
+    .platforms{
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(14px, 2.8vw, 22px);
+      margin-bottom: clamp(10px, 2.2vw, 14px);
+    }
+    .platforms svg{
+      width: clamp(28px, 5.6vw, 40px);
+      height: auto;
+      display: block;
+      fill: currentColor;
+      color: #111;
+      opacity: .9;
+    }
+
+    .hint{
+      font-weight: 700;
+      margin: 0 0 clamp(10px, 2.4vw, 16px);
+      opacity: .9;
+    }
+
+    /* ================= FORM ================= */
     .form{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      align-items:center;
-      flex-wrap:wrap;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
       margin-bottom: clamp(22px, 6vw, 36px);
     }
     .form input[type="email"]{
-      width:min(640px, 78vw);
-      font-size:clamp(16px, 2.8vw, 18px);
-      padding:14px 16px;
-      border-radius:14px;
-      outline:none;
-      border:1px solid #e9e9ef;
-      background:#fff;
-      box-shadow:0 6px 24px rgba(0,0,0,.06);
+      width: min(640px, 78vw);
+      font-size: clamp(16px, 2.8vw, 18px);
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid #e9e9ef;
+      background: #fff;
+      outline: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,.06);
     }
     .btn{
-      font-size:clamp(16px, 2.8vw, 18px);
-      padding:14px 20px;
-      border-radius:14px;
-      border:none;
-      background:#ff9300;
-      color:#fff;
-      box-shadow:0 8px 24px rgba(255,147,0,.35);
-      cursor:pointer;
+      font-size: clamp(16px, 2.8vw, 18px);
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: none;
+      background: #ff9300;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(255,147,0,.35);
+      cursor: pointer;
     }
-    .btn:disabled{opacity:.6; cursor:wait}
-    .msg{
-      min-height:1.6em;
-      font-size:clamp(14px,2.6vw,16px);
-    }
+    .btn:disabled{ opacity:.6; cursor:wait; }
+    .msg{ min-height:1.6em; font-size: clamp(14px,2.6vw,16px); }
 
-    /* ---------- РЕДІКИ (4 кути, легке погойдування) ---------- */
+    /* ================= CORNER REDIKI ================= */
     .rediki{
-      position:fixed;
+      position: fixed;
       pointer-events:none;
-      z-index:0;
+      z-index: 0;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,.18));
       animation: sway 6.5s ease-in-out infinite;
     }
-    /* розміри та позиції */
-    #rediki-blue   { width:clamp(120px, 28vw, 220px); left:-10vw; top:  64px; }
-    #rediki-green  { width:clamp(140px, 30vw, 240px); right:-9vw; top:  64px; }
-    #rediki-yellow { width:clamp(120px, 26vw, 210px); left:-7vw;  bottom:-6vh; }
-    #rediki-orange { width:clamp(120px, 26vw, 210px); right:-5vw; bottom:-6vh; }
+    /* синій та зелений — саме у верх */
+    #rediki-blue  { width:clamp(120px,28vw,220px); left:-12vw; top: calc(env(safe-area-inset-top, 0px) + 8px); }
+    #rediki-green { width:clamp(140px,30vw,240px); right:-12vw; top: calc(env(safe-area-inset-top, 0px) + 8px); }
+    /* нижні як були */
+    #rediki-yellow{ width:clamp(120px,26vw,210px); left:-7vw;  bottom:-6vh; }
+    #rediki-orange{ width:clamp(120px,26vw,210px); right:-5vw; bottom:-6vh; }
 
     @keyframes sway{
       0%,100%{ transform:translateY(0) rotate(0deg); }
       50%   { transform:translateY(-6px) rotate(-1.2deg); }
     }
 
-    /* ---------- ФІОЛЕТОВИЙ “ПІДГЛЯДАЧ” (тільки голова, боком) ---------- */
+    /* ================= PURPLE PEEKER (SIDE HEAD) ================= */
     #purplePeek{
-      position:fixed;
-      right:0;
-      top:var(--purple-top);
-      width:clamp(86px, 22vw, 140px);
-      height:clamp(86px, 22vw, 140px);
-      overflow:hidden;        /* обрізаємо тіло, лишаємо голову */
-      z-index:2;
-      pointer-events:none;
+      position: fixed;
+      right: 0;
+      top: var(--purple-top);
+      width: clamp(100px, 24vw, 160px);   /* трохи більший, щоб голова не зрізалась */
+      height: clamp(100px, 24vw, 160px);
+      overflow: hidden;                   /* обрізаємо тіло — видно лише голову */
+      z-index: 2;
+      pointer-events: none;
     }
-    /* окремий шар — щоб анімація була строго горизонтальна */
     #purplePeek .slide{
       position:absolute; inset:0;
       animation: side-peek 5.5s ease-in-out infinite 1s;
       will-change: transform;
     }
-    /* повертаємо редіка боком */
     #purplePeek img{
       position:absolute;
-      right:-10%;
-      top:15%;
+      right:-6%;           /* більше всередину, щоб голова повніша */
+      top:5%;
       width:130%;
       height:auto;
-      transform: rotate(-90deg);
+      transform: rotate(-90deg) scale(1.05);
       transform-origin:60% 50%;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,.18));
     }
-    /* з-за краю → показав голову → заховався */
     @keyframes side-peek{
       0%, 60%, 100% { transform: translateX(100%); } /* повністю схований */
-      28%           { transform: translateX(38%); }  /* показує голову */
+      28%           { transform: translateX(32%); }  /* показує голову трохи більше */
     }
 
-    /* ---------- НИЖНІЙ ТЕКСТ ---------- */
+    /* ================= FOOTER ================= */
     footer{
-      text-align:center;
-      padding: 20px 16px 28px;
-      font-size:13px;
-      opacity:.55;
+      margin-top: auto;
+      text-align: center;
+      padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px)); /* safe area */
+      font-size: 13px;
+      opacity: .55;
     }
 
-    /* дрібні твіки для дуже вузьких екранів */
-    @media (max-width: 420px){
-      .sub{ max-width: 28ch }
-      #rediki-green{ top: 72px; right:-8vw }
+    /* дрібні мобільні твіки */
+    @media (max-width: 480px){
+      .sub{ max-width: 30ch }
+      :root{ --purple-top: 62vh; } /* трохи нижче на дуже вузьких */
     }
   </style>
 </head>
@@ -184,7 +201,7 @@
   <!-- Фіолетовий “підглядач” -->
   <div id="purplePeek" aria-hidden="true">
     <div class="slide">
-      <img src="assets/rediki-purple.png" alt="" />
+      <img src="assets/rediki-purple.png" alt="">
     </div>
   </div>
 
@@ -201,7 +218,16 @@
     <h2>Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</h2>
 
     <p class="sub">Скоро тут ти знайдеш додаток для</p>
-    <div class="icons" aria-hidden="true">🍎 🤖</div>
+    <div class="platforms" aria-hidden="true" title="iOS та Android">
+      <!-- Apple logo (канонічний знак) -->
+      <svg viewBox="0 0 256 315" aria-hidden="true">
+        <path d="M213 167c-1-40 33-59 35-61-19-28-49-32-59-33-25-2-49 14-61 14-13 0-33-14-54-14-28 0-53 17-67 44-29 52-8 129 20 171 13 19 28 41 48 40 19-1 26-13 49-13 23 0 29 13 50 13 21-1 34-20 47-39 15-22 21-43 21-44-1 0-41-15-40-78zM171 50c11-13 19-31 17-49-16 1-35 10-46 23-10 12-19 31-17 49 18 1 36-9 46-23z"/>
+      </svg>
+      <!-- Android robot (канонічний) -->
+      <svg viewBox="0 0 256 256" aria-hidden="true">
+        <path d="M187 88l18-31a4 4 0 0 0-7-4l-19 33a86 86 0 0 0-83 0L77 53a4 4 0 0 0-7 4l18 31A70 70 0 0 0 52 152v44a12 12 0 0 0 24 0v-44c0-25 21-46 52-50v94a8 8 0 0 0 16 0v-94c31 4 52 25 52 50v44a12 12 0 0 0 24 0v-44a70 70 0 0 0-33-64zM96 76a10 10 0 1 1 10-10 10 10 0 0 1-10 10zm64 0a10 10 0 1 1 10-10 10 10 0 0 1-10 10z"/>
+      </svg>
+    </div>
 
     <p class="hint">Дізнатись першим</p>
 
@@ -209,7 +235,6 @@
       <input name="email" type="email" inputmode="email" placeholder="Введіть свою електронну адресу" required />
       <button class="btn" type="submit">Надіслати</button>
     </form>
-
     <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
   </main>
 
@@ -220,7 +245,7 @@
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // ======== форма (Formspree, без редиректу) ========
-    const FORM_ENDPOINT = "https://formspree.io/f/mrbylwaq"; // <- твій endpoint
+    const FORM_ENDPOINT = "https://formspree.io/f/mrbylwaq";
     const form  = document.getElementById('waitlist');
     const email = form.querySelector('input[name="email"]');
     const btn   = form.querySelector('button[type="submit"]');
@@ -251,7 +276,7 @@
           form.reset();
         } else {
           const data = await res.json().catch(()=> ({}));
-          const err = (data && data.errors && data.errors[0] && data.errors[0].message) || "Щось пішло не так. Спробуй ще раз.";
+          const err = (data?.errors?.[0]?.message) || "Щось пішло не так. Спробуй ще раз.";
           showMsg(err, false);
         }
       } catch(_){
