@@ -4,115 +4,121 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KidReady</title>
-  <link rel="icon" href="assets/logo.png">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: white;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      color: #222;
       overflow-x: hidden;
     }
 
-    .logo {
+    header img {
+      width: 80px;
       margin-top: 40px;
-      width: 120px;
     }
 
     h1 {
       color: #ff9500;
-      font-size: 2.5rem;
+      font-size: 48px;
       margin: 10px 0;
     }
 
     h2 {
-      font-size: 1.6rem;
+      color: #222;
+      font-size: 24px;
       font-weight: 600;
-      max-width: 700px;
-      margin: 20px auto;
+      margin: 20px 0;
+      line-height: 1.4;
     }
 
     p {
-      font-size: 1.1rem;
-      color: #333;
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 30px;
     }
 
-    .icons {
-      margin: 20px 0;
-      font-size: 2rem;
+    .platforms {
+      font-size: 40px;
+      margin-bottom: 40px;
     }
 
     .email-form {
-      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 80px;
     }
 
     input[type="email"] {
-      padding: 12px;
-      width: 260px;
+      padding: 12px 16px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 260px;
     }
 
     button {
-      padding: 12px 22px;
       background-color: #ff9500;
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      margin-left: 8px;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.3s;
     }
 
     button:hover {
-      background-color: #e68900;
+      background-color: #e68500;
     }
 
-    .characters img {
-      position: absolute;
+    .rediki {
+      position: fixed;
+      z-index: -1;
+      opacity: 0.95;
+    }
+
+    .rediki img {
       width: 180px;
     }
 
-    .blue { left: -50px; top: 40px; }
-    .green { right: -40px; top: 60px; }
-    .yellow { left: -60px; bottom: 0; }
-    .red { right: -60px; bottom: 0; }
+    .top-left { top: -40px; left: -40px; transform: rotate(-10deg); }
+    .top-right { top: -40px; right: -40px; transform: rotate(10deg); }
+    .bottom-left { bottom: -60px; left: -40px; transform: rotate(8deg); }
+    .bottom-right { bottom: -60px; right: -40px; transform: rotate(-8deg); }
 
     @media (max-width: 768px) {
-      .characters img {
-        width: 120px;
+      .rediki img {
+        width: 110px;
       }
-      .blue { left: -30px; top: 20px; }
-      .green { right: -30px; top: 30px; }
-      .yellow { left: -40px; bottom: 0; }
-      .red { right: -40px; bottom: 0; }
     }
   </style>
 </head>
 <body>
 
-  <div class="characters">
-    <img src="assets/image.png" class="blue">
-    <img src="assets/image.png" class="green">
-    <img src="assets/image.png" class="yellow">
-    <img src="assets/image.png" class="red">
-  </div>
+  <div class="rediki top-left"><img src="assets/image.png" alt="Rediki"></div>
+  <div class="rediki top-right"><img src="assets/image.png" alt="Rediki"></div>
+  <div class="rediki bottom-left"><img src="assets/image.png" alt="Rediki"></div>
+  <div class="rediki bottom-right"><img src="assets/image.png" alt="Rediki"></div>
 
-  <img src="assets/logo.png" alt="KidReady Logo" class="logo">
+  <header>
+    <img src="assets/logo.png" alt="KidReady Logo">
+  </header>
+
   <h1>KidReady</h1>
   <h2>Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</h2>
   <p>Скоро тут ти знайдеш додаток для</p>
-  <div class="icons">🍏 🤖</div>
+  <div class="platforms">🍏 🤖</div>
 
-  <div class="email-form">
-    <p>Залиш адресу електронної пошти, щоб отримувати оновлення</p>
+  <form class="email-form">
     <input type="email" placeholder="Введіть свою електронну адресу">
-    <button>Надіслати</button>
-  </div>
+    <button type="submit">Надіслати</button>
+  </form>
 
 </body>
 </html>
