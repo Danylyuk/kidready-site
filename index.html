@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KidReady — скоро</title>
+<main style="min-height:100vh;display:grid;place-items:center;font:18px/1.5 system-ui;background:#0f1220;color:#fff">
+  <section style="text-align:center;max-width:680px;padding:24px;border:1px solid #ffffff22;border-radius:14px;background:#ffffff08">
+    <h1 style="margin:0 0 8px">KidReady</h1>
+    <p style="margin:0 0 16px;color:#9aa0aa">Скоро запускаємось. Залиш свій email — повідомимо першими.</p>
+    <form action="#" onsubmit="alert('Дякуємо!');return false" style="display:flex;gap:8px;justify-content:center">
+      <input type="email" placeholder="Email" required style="padding:10px 12px;border-radius:10px;border:1px solid #ffffff33;background:#ffffff10;color:#fff">
+      <button style="padding:10px 14px;border:0;border-radius:10px;background:#69e36f;color:#000;font-weight:700">Повідомити</button>
+    </form>
+    <small style="display:block;margin-top:12px;color:#9aa0aa">© <span id="y"></span> KidReady</small>
+  </section>
+</main>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
