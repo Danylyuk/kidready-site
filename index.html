@@ -1,124 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KidReady</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KidReady — скоро</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      overflow-x: hidden;
+    :root{ --brand:#ff9500; --text:#1d1d1f; }
+    html,body{height:100%}
+    body{
+      margin:0; background:#fff; color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      display:flex; align-items:center; justify-content:center;
+      padding:clamp(16px,3vw,40px);
+    }
+    .wrap{position:relative; z-index:1; width:100%; max-width:920px; text-align:center}
+    .logo{display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:8px}
+    .logo img{width:44px; height:auto}
+    h1{margin:0 0 20px; font-size:clamp(36px,6vw,64px); font-weight:700; color:var(--brand)}
+    .lead{margin:0 0 18px; font-size:clamp(18px,2.8vw,32px); font-weight:700; line-height:1.2}
+    .sub{margin:0 0 10px; font-size:clamp(16px,2.2vw,22px); color:#3a3a3c}
+    .icons{font-size:36px; margin-bottom:24px}
+    .form{display:flex; gap:12px; justify-content:center}
+    .form input{
+      appearance:none; border:1px solid #e5e5e7; border-radius:14px;
+      padding:14px 18px; min-width:min(70vw,420px); font-size:16px; outline:none;
+    }
+    .form button{
+      border:0; background:var(--brand); color:#fff; padding:14px 20px;
+      border-radius:14px; font-weight:600; cursor:pointer
     }
 
-    header img {
-      width: 80px;
-      margin-top: 40px;
-    }
+    /* Редіки по краях */
+    .rediki{position:fixed; z-index:0; pointer-events:none; user-select:none;
+      filter:drop-shadow(0 2px 12px rgba(0,0,0,.06)); opacity:.98}
+    .r-blue   {left:-60px;  top:-40px;   width:220px; transform:rotate(-12deg)}
+    .r-green  {right:-60px; top:-20px;   width:220px; transform:rotate(10deg)}
+    .r-yellow {left:-40px;  bottom:-30px; width:220px; transform:rotate(8deg)}
+    .r-orange {right:-50px; bottom:-40px; width:220px; transform:rotate(-8deg)}
 
-    h1 {
-      color: #ff9500;
-      font-size: 48px;
-      margin: 10px 0;
-    }
-
-    h2 {
-      color: #222;
-      font-size: 24px;
-      font-weight: 600;
-      margin: 20px 0;
-      line-height: 1.4;
-    }
-
-    p {
-      font-size: 18px;
-      color: #444;
-      margin-bottom: 30px;
-    }
-
-    .platforms {
-      font-size: 40px;
-      margin-bottom: 40px;
-    }
-
-    .email-form {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 80px;
-    }
-
-    input[type="email"] {
-      padding: 12px 16px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-      width: 260px;
-    }
-
-    button {
-      background-color: #ff9500;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #e68500;
-    }
-
-    .rediki {
-      position: fixed;
-      z-index: -1;
-      opacity: 0.95;
-    }
-
-    .rediki img {
-      width: 180px;
-    }
-
-    .top-left { top: -40px; left: -40px; transform: rotate(-10deg); }
-    .top-right { top: -40px; right: -40px; transform: rotate(10deg); }
-    .bottom-left { bottom: -60px; left: -40px; transform: rotate(8deg); }
-    .bottom-right { bottom: -60px; right: -40px; transform: rotate(-8deg); }
-
-    @media (max-width: 768px) {
-      .rediki img {
-        width: 110px;
-      }
+    @media (max-width:600px){
+      .r-blue   {left:-70px;  top:-50px;   width:160px}
+      .r-green  {right:-70px; top:-40px;   width:160px}
+      .r-yellow {left:-70px;  bottom:-50px; width:160px}
+      .r-orange {right:-70px; bottom:-60px; width:160px}
+      .form{flex-direction:column; align-items:center}
+      .form input{min-width:unset; width:min(90vw,420px)}
+      .icons{font-size:32px}
     }
   </style>
 </head>
 <body>
+  <!-- 4 окремі PNG з прозорим фоном -->
+  <img class="rediki r-blue"   src="assets/rediki-blue.png"   alt="" loading="lazy" aria-hidden="true">
+  <img class="rediki r-green"  src="assets/rediki-green.png"  alt="" loading="lazy" aria-hidden="true">
+  <img class="rediki r-yellow" src="assets/rediki-yellow.png" alt="" loading="lazy" aria-hidden="true">
+  <img class="rediki r-orange" src="assets/rediki-orange.png" alt="" loading="lazy" aria-hidden="true">
 
-  <div class="rediki top-left"><img src="assets/image.png" alt="Rediki"></div>
-  <div class="rediki top-right"><img src="assets/image.png" alt="Rediki"></div>
-  <div class="rediki bottom-left"><img src="assets/image.png" alt="Rediki"></div>
-  <div class="rediki bottom-right"><img src="assets/image.png" alt="Rediki"></div>
+  <main class="wrap">
+    <div class="logo">
+      <img src="assets/logo.png?v=2" alt="KidReady">
+      <h1>KidReady</h1>
+    </div>
 
-  <header>
-    <img src="assets/logo.png" alt="KidReady Logo">
-  </header>
+    <p class="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
+    <p class="sub">Скоро тут ти знайдеш додаток для</p>
+    <div class="icons"> 🤖</div>
 
-  <h1>KidReady</h1>
-  <h2>Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</h2>
-  <p>Скоро тут ти знайдеш додаток для</p>
-  <div class="platforms">🍏 🤖</div>
-
-  <form class="email-form">
-    <input type="email" placeholder="Введіть свою електронну адресу">
-    <button type="submit">Надіслати</button>
-  </form>
-
+    <!-- Підключимо збір email пізніше. Поки що кнопка не відправляє. -->
+    <form class="form" onsubmit="event.preventDefault(); alert('Дякуємо! Незабаром додамо підписку.');">
+      <input type="email" placeholder="Введіть свою електронну адресу" required>
+      <button type="submit">Надіслати</button>
+    </form>
+  </main>
 </body>
 </html>
