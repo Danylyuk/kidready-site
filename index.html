@@ -1,209 +1,293 @@
 <!doctype html>
 <html lang="uk">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>KidReady — скоро</title>
-  <meta name="color-scheme" content="light only"/>
-
+  <meta name="color-scheme" content="light only" />
   <style>
-    :root{
-      --purple-top: 60vh;                           /* JS оновлює під кнопку на мобі */
-      --logo-size: clamp(56px, 8vw, 84px);
-      --logo-gap:  clamp(30px, 6vw, 54px);          /* збільшений відступ під логотипом */
-    }
-
-    html, body { height: 100%; }
-    html { box-sizing: border-box; overflow-x: hidden; }
-    *,*::before,*::after{ box-sizing: inherit; }
-
+    /* ---------- Reset / base ---------- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
     body{
-      margin: 0;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Text",
-                   "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:#fff; color:#111;
-      -webkit-font-smoothing: antialiased;
-      overflow-x:hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+                   Segoe UI, Roboto, Helvetica, Arial, system-ui, sans-serif;
+      color:#111;
+      background:#fff;
+      line-height:1.25;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
 
-    main.wrap{
-      flex:1 0 auto;
-      max-width:1100px;
-      margin-inline:auto;
-      padding: clamp(16px,4vw,40px);
-      text-align:center;
+    /* Контейнер сторінки */
+    .page{
+      min-height:100dvh;
+      display:flex;
+      flex-direction:column;
       position:relative;
+      overflow-x:hidden;
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right:max(16px, env(safe-area-inset-right));
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+    main{ position:relative; z-index:1; }
+
+    /* ---------- Брендинг ---------- */
+    .badge{
+      width:72px; /* більше лого */
+      display:block;
+      margin:0 auto 28px auto; /* більший відступ після лого */
+      user-select:none;
+    }
+    h1{
+      margin:0 0 18px 0;
+      font-weight:800;
+      letter-spacing:.2px;
+      font-size:clamp(40px, 7.4vw, 72px);
+      text-align:center;
+      color:#f8961e; /* помаранчевий бренд */
+    }
+    .lead{
+      margin:0 auto 16px auto;
+      max-width:880px;
+      text-align:center;
+      font-weight:800;
+      font-size:clamp(18px, 3.8vw, 36px);
+      color:#111;
+    }
+    .sub{
+      margin:12px auto 10px auto;
+      max-width:720px;
+      text-align:center;
+      font-size:clamp(16px, 3.2vw, 22px);
+      color:#3a3a3a;
+    }
+
+    /* ---------- Платформи ---------- */
+    .platforms{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      margin:8px 0 12px 0;
+    }
+    .platforms img{
+      width:36px; height:36px; display:block;
+      filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+      user-select:none;
+    }
+    .download-row{
+      display:flex; gap:12px; justify-content:center; margin:6px 0 22px;
+      flex-wrap:wrap;
+    }
+    .btn-disabled{
+      padding:10px 16px;
+      border-radius:12px;
+      border:1px solid #e6e6e6;
+      background:#f5f5f7;
+      color:#9b9b9b;
+      font-weight:600;
+      font-size:15px;
+      cursor:not-allowed;
+      opacity:.9;
+    }
+
+    /* ---------- Форма ---------- */
+    .form-wrap{
+      width:min(780px, 100%);
+      margin:0 auto;
+      position:relative; /* прив'язка для фіолетового */
       z-index:1;
     }
-
-    /* ---------- заголовки / лого ---------- */
-    .logo{ width:var(--logo-size); height:auto; margin:0 auto var(--logo-gap); display:block; user-select:none; }
-    .brand{ margin:0 0 clamp(12px,2.2vw,18px); font-size:clamp(36px,7vw,72px); line-height:1.05; font-weight:800; letter-spacing:.3px; color:#ff9300; }
-    h2{ margin:0 auto clamp(14px,3.2vw,24px); max-width:25ch; font-size:clamp(20px,3.8vw,34px); line-height:1.18; font-weight:800; color:#1b1b1f; }
-    .sub{ margin:0 auto clamp(10px,2.6vw,18px); font-size:clamp(16px,2.8vw,22px); opacity:.85; }
-
-    /* ---------- канонічні іконки платформ ---------- */
-    .platforms{ display:inline-flex; align-items:center; gap: clamp(14px,2.8vw,22px); margin-bottom: clamp(10px,2.2vw,14px); }
-    .platforms svg{ display:block; height:auto; }
-    .icon-apple  { width:clamp(28px,5.6vw,40px); fill:#111; }
-    .icon-android{ width:clamp(30px,6vw,44px);  fill:#3DDC84; } /* офіційний зелений */
-
-    .hint{ font-weight:700; margin:0 0 clamp(10px,2.4vw,16px); opacity:.9; }
-
-    /* ---------- форма ---------- */
-    .form{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:12px; margin-bottom: clamp(22px,6vw,36px); }
-    .form input[type="email"]{
-      width:min(640px,78vw); font-size:clamp(16px,2.8vw,18px);
-      padding:14px 16px; border-radius:14px; border:1px solid #e9e9ef; background:#fff; outline:none;
-      box-shadow:0 6px 24px rgba(0,0,0,.06);
+    form{
+      display:flex; gap:10px; justify-content:center; align-items:center;
+      flex-wrap:wrap;
     }
-    .btn{ font-size:clamp(16px,2.8vw,18px); padding:14px 20px; border-radius:14px; border:none;
-          background:#ff9300; color:#fff; box-shadow:0 8px 24px rgba(255,147,0,.35); cursor:pointer; }
-    .btn:disabled{ opacity:.6; cursor:wait; }
-    .msg{ min-height:1.6em; font-size:clamp(14px,2.6vw,16px); }
-
-    /* ---------- кутові редіки ---------- */
-    .rediki{ position:fixed; pointer-events:none; z-index:0; filter:drop-shadow(0 8px 16px rgba(0,0,0,.18)); animation:sway 6.5s ease-in-out infinite; }
-    #rediki-blue  { width:clamp(120px,28vw,220px); left:-12vw; top: calc(env(safe-area-inset-top,0px) + 8px); }
-    #rediki-green { width:clamp(140px,30vw,240px); right:-12vw; top: calc(env(safe-area-inset-top,0px) + 8px); }
-    #rediki-yellow{ width:clamp(120px,26vw,210px); left:-7vw;  bottom:-6vh; }
-    #rediki-orange{ width:clamp(120px,26vw,210px); right:-5vw; bottom:-6vh; }
-    @keyframes sway{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-6px) rotate(-1.2deg)} }
-
-    /* ---------- фіолетовий “підглядач” біля кнопки ---------- */
-    #purplePeek{
-      position:fixed; right:0; top:var(--purple-top);
-      width:clamp(120px,34vw,180px); height:clamp(120px,34vw,180px);
-      overflow:hidden; z-index:2; pointer-events:none;
+    input[type="email"]{
+      flex:1 1 560px;
+      min-width:min(86vw, 560px);
+      font-size:16px;
+      border-radius:16px;
+      padding:18px 18px;
+      border:1px solid #e6e6e6;
+      outline:none;
+      background:#fff;
+      box-shadow:0 10px 32px rgba(0,0,0,.06);
     }
-    #purplePeek .slide{ position:absolute; inset:0; animation:side-peek 5.5s ease-in-out infinite 1s; will-change:transform; }
-    #purplePeek img{
-      position:absolute; right:-12%; top:-4%; width:140%; height:auto;
-      transform:rotate(-90deg) scale(1.0); transform-origin:60% 50%;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.18));
+    input[type="email"]:focus{ border-color:#f5a43a; box-shadow:0 10px 38px rgba(248,150,30,.18) }
+    .btn{
+      background:#f8961e;
+      color:#fff;
+      border:0; border-radius:16px;
+      padding:16px 26px;
+      font-weight:700; font-size:18px;
+      box-shadow:0 12px 36px rgba(248,150,30,.3);
+      cursor:pointer;
     }
-    @keyframes side-peek{
-      0%,60%,100%{ transform:translateX(100%);}  /* повністю схований */
-      28%{ transform:translateX(28%);}           /* видно лише голову */
+    .msg{ text-align:center; margin-top:10px; font-size:15px; min-height:20px }
+
+    /* ---------- Редіки (краї) ---------- */
+    .rediki{
+      position:fixed; z-index:0; pointer-events:none; user-select:none;
+      transform-origin:center;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.12));
+    }
+    /* Верхні — чітко у кутах і видимі */
+    .rediki.blue{
+      top: max(6px, calc(env(safe-area-inset-top) + 4px));
+      left:-22px;
+      width:clamp(120px, 26vw, 220px);
+      animation: floaty 3.8s ease-in-out infinite;
+    }
+    .rediki.green{
+      top: max(6px, calc(env(safe-area-inset-top) + 4px));
+      right:-20px;
+      width:clamp(120px, 26vw, 220px);
+      animation: floaty 3.6s ease-in-out infinite .15s;
+    }
+    /* Нижні — трохи менші на мобільному */
+    .rediki.yellow{
+      left:-14px;
+      bottom: calc(38px + env(safe-area-inset-bottom));
+      width:clamp(94px, 21vw, 180px);
+      animation: floaty 4.0s ease-in-out infinite .12s;
+    }
+    .rediki.orange{
+      right:-10px;
+      bottom: calc(38px + env(safe-area-inset-bottom));
+      width:clamp(102px, 22vw, 190px);
+      animation: floaty 4.2s ease-in-out infinite .2s;
     }
 
-    /* ---------- футер ---------- */
-    footer{ margin-top:auto; text-align:center; padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px)); font-size:13px; opacity:.55; }
+    /* Фіолетовий — «виглядає боком» біля кнопки (на мобільному) */
+    .peek-purple{
+      position:fixed; z-index:0; pointer-events:none; user-select:none;
+      right:-74px;                      /* за межами екрану */
+      bottom: calc(175px + env(safe-area-inset-bottom)); /* район кнопки */
+      width:120px;
+      transform-origin:center right;
+      animation: peek 3.8s ease-in-out infinite;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.12));
+    }
 
-    @media (max-width:480px){
-      .sub{ max-width:30ch }
+    /* Анімації — активніші */
+    @keyframes floaty{
+      0%   { transform: translateY(0) rotate(0deg); }
+      25%  { transform: translateY(-16px) rotate(-1.6deg); }
+      50%  { transform: translateY(0) rotate(0.6deg); }
+      75%  { transform: translateY(14px) rotate(-0.8deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    /* «Виглядання боком» — тільки голова заходить і ховається */
+    @keyframes peek{
+      0%   { transform: translateX(70%) rotate(-14deg); opacity:.98; }
+      35%  { transform: translateX(10%) rotate(-8deg);  opacity:1; }
+      50%  { transform: translateX(0%)  rotate(-6deg);  opacity:1; }
+      70%  { transform: translateX(14%) rotate(-9deg);  opacity:1; }
+      100% { transform: translateX(70%) rotate(-14deg); opacity:.98; }
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      margin-top:auto; /* тягнеться вниз */
+      padding:24px 0 calc(12px + env(safe-area-inset-bottom));
+      text-align:center;
+      color:#6b7280;
+      font-size:14px;
+      position:sticky;
+      bottom:0;
+      background:linear-gradient(to bottom, rgba(255,255,255,0), #fff 24%, #fff);
+    }
+
+    /* ---------- Десктопні правки ---------- */
+    @media (min-width: 992px){
+      .badge{ width:86px; margin-bottom:34px; }
+      .download-row{ margin-bottom:26px }
+      .peek-purple{
+        bottom: 120px;   /* трохи вище, щоб не злипався з помаранчевим */
+        right: 22px;
+        width:140px;
+      }
+      .rediki.yellow{ left:-10px; bottom: 48px; width:170px; }
+      .rediki.orange{ right:-6px; bottom: 48px; width:186px; }
+    }
+
+    /* Доступність: якщо користувач просить менше рухів */
+    @media (prefers-reduced-motion: reduce){
+      .rediki, .peek-purple{ animation:none !important }
     }
   </style>
 </head>
 <body>
+  <div class="page">
 
-  <!-- Фіолетовий “підглядач” (голова збоку) -->
-  <div id="purplePeek" aria-hidden="true">
-    <div class="slide">
-      <img src="assets/rediki-purple.png" alt="">
-    </div>
+    <!-- Редіки по краях (fixed, щоб завжди були видимі) -->
+    <img class="rediki blue"    src="assets/rediki-blue.png"    alt="" width="220" height="220" loading="eager" />
+    <img class="rediki green"   src="assets/rediki-green.png"   alt="" width="220" height="220" loading="eager" />
+    <img class="rediki yellow"  src="assets/rediki-yellow.png"  alt="" width="180" height="180" loading="lazy" />
+    <img class="rediki orange"  src="assets/rediki-orange.png"  alt="" width="190" height="190" loading="lazy" />
+    <img class="peek-purple"    src="assets/rediki-purple.png"  alt="" width="140" height="140" loading="lazy" />
+
+    <main>
+      <img class="badge" src="assets/logo.png" alt="KidReady" />
+
+      <h1>KidReady</h1>
+      <p class="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
+      <p class="sub">Скоро тут ти знайдеш додаток для</p>
+
+      <div class="platforms" aria-label="Платформи">
+        <img src="assets/apple-logo.png"   alt="Apple iOS"  width="36" height="36">
+        <img src="assets/android-logo.png" alt="Android"    width="36" height="36">
+      </div>
+
+      <div class="download-row" aria-hidden="true">
+        <button class="btn-disabled" type="button">Скачати iOS (скоро)</button>
+        <button class="btn-disabled" type="button">Скачати Android (скоро)</button>
+      </div>
+
+      <p class="sub" style="font-weight:700; margin-top:6px;">Дізнатись першим</p>
+
+      <div class="form-wrap">
+        <form id="waitlist" action="https://formspree.io/f/mrbylwaq" method="POST" novalidate>
+          <input name="email" type="email" required autocomplete="email"
+                 placeholder="Введіть свою електронну адресу" />
+          <button class="btn" type="submit">Надіслати</button>
+        </form>
+        <div class="msg" id="msg"></div>
+      </div>
+    </main>
+
+    <footer>
+      © 2025 KidReady. Усі права захищено.
+    </footer>
   </div>
 
-  <!-- Кутові редіки -->
-  <img id="rediki-blue"   class="rediki" src="assets/rediki-blue.png"   alt="">
-  <img id="rediki-green"  class="rediki" src="assets/rediki-green.png"  alt="">
-  <img id="rediki-yellow" class="rediki" src="assets/rediki-yellow.png" alt="">
-  <img id="rediki-orange" class="rediki" src="assets/rediki-orange.png" alt="">
-
-  <main class="wrap">
-    <img class="logo" src="assets/logo.png" alt="KidReady">
-    <h1 class="brand">KidReady</h1>
-
-    <h2>Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</h2>
-
-    <p class="sub">Скоро тут ти знайдеш додаток для</p>
-    <div class="platforms" aria-hidden="true" title="iOS та Android">
-      <!-- Apple (канонічний) -->
-      <svg class="icon-apple" viewBox="0 0 256 315" role="img" aria-label="Apple">
-        <path d="M213 167c-1-40 33-59 35-61-19-28-49-32-59-33-25-2-49 14-61 14-13 0-33-14-54-14-28 0-53 17-67 44-29 52-8 129 20 171 13 19 28 41 48 40 19-1 26-13 49-13 23 0 29 13 50 13 21-1 34-20 47-39 15-22 21-43 21-44-1 0-41-15-40-78zM171 50c11-13 19-31 17-49-16 1-35 10-46 23-10 12-19 31-17 49 18 1 36-9 46-23z"/>
-      </svg>
-      <!-- Android robot (канонічний, зелений) -->
-      <svg class="icon-android" viewBox="0 0 256 256" role="img" aria-label="Android">
-        <path d="M195 92l16-28a6 6 0 1 0-10-6l-17 30a78 78 0 0 0-72 0l-17-30a6 6 0 1 0-10 6l16 28a66 66 0 0 0-31 56v44a12 12 0 1 0 24 0v-44c0-23 20-43 48-47v91a8 8 0 1 0 16 0v-91c28 4 48 24 48 47v44a12 12 0 1 0 24 0v-44a66 66 0 0 0-31-56zM96 76a10 10 0 1 1 10-10 10 10 0 0 1-10 10zm64 0a10 10 0 1 1 10-10 10 10 0 0 1-10 10z"/>
-      </svg>
-    </div>
-
-    <p class="hint">Дізнатись першим</p>
-
-    <form id="waitlist" class="form" autocomplete="email" novalidate>
-      <input name="email" type="email" inputmode="email" placeholder="Введіть свою електронну адресу" required />
-      <button id="submitBtn" class="btn" type="submit">Надіслати</button>
-    </form>
-    <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
-  </main>
-
-  <footer>© <span id="y"></span> KidReady. Усі права захищено.</footer>
-
   <script>
-    // поточний рік
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Відправка без редиректу + повідомлення
+    const form = document.getElementById('waitlist');
+    const msg  = document.getElementById('msg');
 
-    // Formspree без редиректу
-    const FORM_ENDPOINT = "https://formspree.io/f/mrbylwaq";
-    const form  = document.getElementById('waitlist');
-    const email = form.querySelector('input[name="email"]');
-    const btn   = document.getElementById('submitBtn');
-    const msgEl = document.getElementById('formMsg');
-
-    function showMsg(text, ok=true){
-      msgEl.textContent = text;
-      msgEl.style.color = ok ? "#0a7a28" : "#b00020";
-    }
-
-    form.addEventListener('submit', async (e)=>{
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      msgEl.textContent = "";
-      if (!email.value || !email.checkValidity()){
-        showMsg("Введи коректний email, будь ласка.", false);
-        email.focus();
-        return;
-      }
-      btn.disabled = true;
-      try{
-        const res = await fetch(FORM_ENDPOINT, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: new FormData(form)
+      msg.textContent = 'Надсилаємо…';
+      const data = new FormData(form);
+
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
         });
-        if (res.ok){
-          showMsg("Готово! Перевір пошту — ми надіслали підтвердження.");
+        if (resp.ok) {
+          msg.textContent = 'Дякуємо! Ми напишемо, щойно запустимось.';
           form.reset();
         } else {
-          const data = await res.json().catch(()=> ({}));
-          const err = (data?.errors?.[0]?.message) || "Щось пішло не так. Спробуй ще раз.";
-          showMsg(err, false);
+          msg.textContent = 'Не вдалося надіслати. Спробуйте ще раз.';
         }
-      } catch(_){
-        showMsg("Немає з’єднання. Спробуй ще раз пізніше.", false);
-      } finally {
-        btn.disabled = false;
+      } catch (err) {
+        msg.textContent = 'Помилка мережі. Перевірте інтернет і повторіть.';
       }
     });
-
-    // ---- позиціюємо фіолетового біля кнопки на мобільних ----
-    const purpleRoot = document.documentElement;
-    function positionPurple(){
-      // тільки на вузьких екранах — біля кнопки
-      if (window.innerWidth <= 600){
-        const rect = btn.getBoundingClientRect();
-        const top  = rect.top + window.scrollY - (rect.height * 0.4);
-        purpleRoot.style.setProperty('--purple-top', `${top}px`);
-      } else {
-        // на десктопі — стандартне значення
-        purpleRoot.style.setProperty('--purple-top', '60vh');
-      }
-    }
-    positionPurple();
-    window.addEventListener('resize', positionPurple);
-    window.addEventListener('orientationchange', positionPurple);
   </script>
 </body>
 </html>
