@@ -5,88 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>KidReady — скоро</title>
   <meta name="description" content="Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath fill='%23f59e0b' d='M20 26v-3a12 12 0 0 1 24 0v3h4a6 6 0 0 1 6 6v17a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6zm6 0h12v-3a6 6 0 0 0-12 0z'/%3E%3Crect x='22' y='36' width='20' height='14' rx='3' fill='%23fbbf24'/%3E%3C/svg%3E" />
   <style>
     :root{
-      --brand:#f59e0b; /* помаранчевий */
-      --text:#121212;
-      --muted:#6b7280;
-      --bg:#ffffff;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --radius:16px;
-      --floatY: 12px; /* амплітуда гойдання редіків */
+      --brand:#f59e0b; --text:#121212; --muted:#6b7280; --bg:#fff;
+      --shadow:0 10px 30px rgba(0,0,0,.08); --radius:16px;
+      --floatY:12px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;background:var(--bg);color:var(--text);
+    html,body{height:100%; margin:0; background:var(--bg); color:var(--text);
       font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
-      overflow-x:hidden;
-    }
-    .wrap{
-      min-height:100svh;
-      display:flex;flex-direction:column;align-items:center;
-      padding:clamp(20px,3vw,40px) max(16px,env(safe-area-inset-left)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right));
-    }
-    .container{ width:min(960px, 92vw); margin:0 auto; position:relative; z-index:2; }
+      overflow-x:hidden;}
+    img{display:block; max-width:100%; height:auto}
 
-    /* маленький значок-логотип (inline SVG) і велика назва */
-    .logo-bag{
-      display:block; margin:8px auto 28px; /* збільшений відступ під лого */
-      width:28px; height:28px;
-    }
-    h1{
-      margin:0 0 8px; text-align:center;
-      font-weight:800; letter-spacing:.2px;
-      font-size:clamp(44px,6.2vw,64px); color:var(--brand);
-    }
-    .lead{
-      text-align:center; font-weight:800;
-      font-size:clamp(20px,3.2vw,32px);
-      margin:0 auto 14px; max-width:22ch;
-    }
-    .sub{
-      text-align:center; color:var(--muted);
-      font-size:clamp(16px,2.2vw,20px);
-      margin:0 0 18px;
-    }
+    .wrap{min-height:100svh; display:flex; flex-direction:column; align-items:center;
+      padding:clamp(20px,3vw,40px) max(16px,env(safe-area-inset-left)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right));}
+    .container{ width:min(960px,92vw); margin:0 auto; position:relative; z-index:2; }
 
-    /* блок з іконками і кнопками завантаження */
+    /* маленький логотип (inline SVG) + назва */
+    .logo-bag{ display:block; margin:8px auto 28px; width:28px; height:28px; }
+    h1{ margin:0 0 8px; text-align:center; font-weight:800; letter-spacing:.2px;
+        font-size:clamp(44px,6.2vw,64px); color:var(--brand); }
+    .lead{ text-align:center; font-weight:800; font-size:clamp(20px,3.2vw,32px); margin:0 auto 14px; max-width:22ch; }
+    .sub{ text-align:center; color:var(--muted); font-size:clamp(16px,2.2vw,20px); margin:0 0 18px; }
+
+    /* блок з іконками і кнопками */
     .stores{ display:grid; place-items:center; gap:14px; margin:8px 0 24px; }
-    .store-icon{ width:36px; height:auto; display:block; opacity:.9; }
+    .store-icon{ width:36px; height:auto; opacity:.9; }
     .download{
       width:min(520px,100%); border:0; border-radius:999px; padding:16px 22px;
-      background:#eef2f7; color:#111; font-weight:700;
-      box-shadow:var(--shadow); opacity:.6; cursor:not-allowed;
+      background:#eef2f7; color:#111; font-weight:700; box-shadow:var(--shadow);
+      opacity:.85; cursor:pointer; user-select:none;
     }
 
     h2{ text-align:center; margin:6px 0 10px; font-size:clamp(20px,2.6vw,24px) }
-
     form{ width:min(720px,100%); margin:0 auto; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
     input[type="email"]{
-      flex:1 1 420px; min-width:240px;
-      border:1px solid #e5e7eb; border-radius:999px; padding:18px 20px;
-      box-shadow:var(--shadow); outline:none; font-size:16px;
-    }
+      flex:1 1 420px; min-width:240px; border:1px solid #e5e7eb; border-radius:999px; padding:18px 20px;
+      box-shadow:var(--shadow); outline:none; font-size:16px; }
     button[type="submit"]{
-      background:var(--brand); color:#fff; font-weight:800;
-      border:0; border-radius:999px; padding:16px 28px; box-shadow:0 12px 40px rgba(245,158,11,.35);
-      transition:transform .15s ease; cursor:pointer;
-    }
+      background:var(--brand); color:#fff; font-weight:800; border:0; border-radius:999px; padding:16px 28px;
+      box-shadow:0 12px 40px rgba(245,158,11,.35); transition:transform .15s ease; cursor:pointer; }
     button[type="submit"]:active{ transform:translateY(1px) }
 
     footer{ width:100%; text-align:center; color:#6b7280; margin-top:auto; padding-top:18px; z-index:1; }
 
-    /* монстрики (редікі) по краях */
+    /* редіки по краях */
     .edge{ position:fixed; z-index:0; pointer-events:none; filter:drop-shadow(0 10px 25px rgba(0,0,0,.12)); }
-    .edge img{ display:block; width:100%; height:auto; }
-
-    .blue  { left:max(-8vw,-40px);  top:  max(-2vh,-10px);  width: clamp(160px,18vw,200px); transform:rotate(-6deg); }
-    .green { right:max(-8vw,-40px); top:  max(-3vh,-12px);  width: clamp(170px,19vw,210px); transform:rotate(4deg); }
-    .yellow{ left:max(-7vw,-36px);  bottom:max(-3vh,-12px); width: clamp(150px,17vw,190px); transform:rotate(5deg); }
-    .orange{ right:max(-7vw,-36px); bottom:max(-2vh,-10px); width: clamp(150px,17vw,190px); transform:rotate(-4deg); }
-
-    /* гойдання +10% */
+    .edge img{ width:100%; height:auto; }
+    .blue  { left:max(-8vw,-40px);  top:max(-2vh,-10px);  width:clamp(160px,18vw,200px); transform:rotate(-6deg); }
+    .green { right:max(-8vw,-40px); top:max(-3vh,-12px);  width:clamp(170px,19vw,210px); transform:rotate(4deg); }
+    .yellow{ left:max(-7vw,-36px);  bottom:max(-3vh,-12px); width:clamp(150px,17vw,190px); transform:rotate(5deg); }
+    .orange{ right:max(-7vw,-36px); bottom:max(-2vh,-10px); width:clamp(150px,17vw,190px); transform:rotate(-4deg); }
     .float-slow { animation:float 5.2s ease-in-out -1s infinite; }
     .float-med  { animation:float 4.6s ease-in-out -.3s infinite; }
     .float-fast { animation:float 3.8s ease-in-out -.7s infinite; }
@@ -95,48 +64,46 @@
       50%    { transform:translateY(var(--floatY)) rotate(var(--rot,0deg)); }
     }
 
-    /* фіолетовий «лежачий» підглядач біля кнопок */
-    .peek-wrap{ position:fixed; right:max(-1vw,-8px); top:58%; width:clamp(120px,20vw,170px); overflow:hidden; z-index:6; }
-    .peek-head{
-      position:absolute; right:-6%; top:50%;
-      width:134%; height:auto; visibility:hidden;
-      transform-origin:right center;
-      transform: translateX(70%) rotate(-90deg);
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,.12));
-      animation: peek 6s ease-in-out infinite 1.1s;
+    /* фіолетовий, який з’являється на кліку по кнопці */
+    #clickPurple{
+      position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) rotate(-8deg) scale(.92);
+      width:140px; height:auto; z-index:8; pointer-events:none;
+      opacity:0; transition:opacity .25s ease, transform .25s ease;
+      filter:drop-shadow(0 12px 30px rgba(0,0,0,.18));
+      will-change:transform,opacity,left,top,width;
     }
-    @keyframes peek{
-      0%,15%   { transform: translateX(70%) rotate(-90deg); }
-      35%,65%  { transform: translateX(28%) rotate(-90deg); } /* висунувся */
-      85%,100% { transform: translateX(70%) rotate(-90deg); }
+    #clickPurple.show{
+      opacity:1; transform:translate(-50%,-50%) rotate(2deg) scale(1);
+      animation:pop 320ms ease-out;
+    }
+    @keyframes pop{
+      0%{transform:translate(-50%,-50%) scale(.85) rotate(-6deg)}
+      60%{transform:translate(-50%,-50%) scale(1.06) rotate(2deg)}
+      100%{transform:translate(-50%,-50%) scale(1) rotate(0deg)}
     }
 
-    /* мобільні дрібні твики */
     @media (max-width: 767px){
       .blue  { left:max(-10vw,-44px); top:max(-2.5vh,-10px); }
       .green { right:max(-10vw,-44px); top:max(-3.5vh,-14px); }
       .yellow{ left:max(-10vw,-44px); }
       .orange{ right:max(-10vw,-44px); }
-      .peek-wrap{ top:60%; right:max(-1.5vw,-8px); }
-      .logo-bag{ margin:8px auto 32px; } /* трохи більший відступ */
+      .logo-bag{ margin:8px auto 32px; }
     }
   </style>
 </head>
 <body>
-  <!-- Крайні редікі -->
-  <div class="edge blue  float-slow" style="--rot:-6deg"><img src="assets/rediki-blue.png"   alt="" loading="eager"></div>
-  <div class="edge green float-med"  style="--rot:4deg"><img  src="assets/rediki-green.png"  alt="" loading="eager"></div>
-  <div class="edge yellow float-med" style="--rot:5deg"><img  src="assets/rediki-yellow.png" alt="" loading="eager"></div>
-  <div class="edge orange float-fast" style="--rot:-4deg"><img src="assets/rediki-orange.png" alt="" loading="eager"></div>
+  <!-- крайні редіки -->
+  <div class="edge blue  float-slow" style="--rot:-6deg"><img src="assets/rediki-blue.png"   alt=""></div>
+  <div class="edge green float-med"  style="--rot:4deg"><img  src="assets/rediki-green.png"  alt=""></div>
+  <div class="edge yellow float-med" style="--rot:5deg"><img  src="assets/rediki-yellow.png" alt=""></div>
+  <div class="edge orange float-fast" style="--rot:-4deg"><img src="assets/rediki-orange.png" alt=""></div>
 
-  <!-- Фіолетовий підглядає біля кнопок -->
-  <div class="peek-wrap" aria-hidden="true">
-    <img id="purpleHead" class="peek-head" alt="">
-  </div>
+  <!-- фіолетовий, який показуємо на клік -->
+  <img id="clickPurple" src="assets/rediki-purple.png" alt="">
 
   <main class="wrap">
     <div class="container">
-      <!-- маленький значок рюкзака (inline SVG, щоб не залежати від файлів) -->
+      <!-- маленький значок-логотип (inline SVG) -->
       <svg class="logo-bag" viewBox="0 0 64 64" aria-hidden="true">
         <path fill="#f59e0b" d="M20 26v-3a12 12 0 0 1 24 0v3h4a6 6 0 0 1 6 6v17a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6zm6 0h12v-3a6 6 0 0 0-12 0z"/>
         <rect x="22" y="36" width="20" height="14" rx="3" fill="#fbbf24"/>
@@ -146,12 +113,12 @@
       <p class="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
       <p class="sub">Скоро тут ти знайдеш додаток для</p>
 
-      <div class="stores">
+      <div class="stores" id="stores">
         <img class="store-icon" src="assets/apple-logo.png" alt="Apple" width="36" height="36" />
-        <button class="download" type="button" disabled>Скачати iOS (скоро)</button>
+        <button id="btn-ios" class="download" type="button">Скачати iOS (скоро)</button>
 
         <img class="store-icon" src="assets/android-logo.png" alt="Android" width="36" height="36" />
-        <button class="download" type="button" disabled>Скачати Android (скоро)</button>
+        <button id="btn-and" class="download" type="button">Скачати Android (скоро)</button>
       </div>
 
       <h2>Дізнатись першим</h2>
@@ -167,7 +134,7 @@
   </main>
 
   <script>
-    // AJAX-подача у Formspree без редиректу
+    // Formspree без редиректу
     (function () {
       const form = document.getElementById('waitlist');
       const msg  = document.getElementById('msg');
@@ -176,39 +143,45 @@
         msg.textContent = 'Відправляємо…';
         const data = new FormData(form);
         try{
-          const res = await fetch(form.action, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: data
-          });
-          if (res.ok) {
-            msg.textContent = 'Дякуємо! Ми надішлемо новини на ваш email.';
-            form.reset();
-          } else {
-            msg.style.color = '#dc2626';
-            msg.textContent = 'Упс! Не вдалося надіслати. Спробуйте ще раз.';
-          }
-        } catch {
-          msg.style.color = '#dc2626';
-          msg.textContent = 'Помилка мережі. Перевірте інтернет і повторіть.';
-        }
+          const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
+          if (res.ok) { form.reset(); msg.textContent = 'Дякуємо! Ми надішлемо новини на ваш email.'; }
+          else         { msg.style.color = '#dc2626'; msg.textContent = 'Упс! Не вдалося надіслати. Спробуйте ще раз.'; }
+        }catch{ msg.style.color = '#dc2626'; msg.textContent = 'Помилка мережі. Перевірте інтернет і повторіть.'; }
       });
     })();
 
-    // Фіолетовий підглядач: надійно підвантажуємо з кількома варіантами імені
+    // Показ фіолетового редіка в точці кліку по кнопці (3 сек)
     (function () {
-      const variants = [
-        'assets/rediki-purple.png',   // основна назва
-        'assets/Rediki-purple.png',   // на випадок великої літери
-        'assets/rediki_purple.png',   // підкреслення
-        'assets/rediki-purple.PNG',   // інше розширення
-        'assets/purple.png'           // запасний
-      ];
-      const img = document.getElementById('purpleHead');
-      let i = 0;
-      img.onerror = () => { i++; if (i < variants.length) img.src = variants[i]; };
-      img.onload  = () => { img.style.visibility = 'visible'; };
-      img.src = variants[0];
+      const purple = document.getElementById('clickPurple');
+      const iosBtn = document.getElementById('btn-ios');
+      const andBtn = document.getElementById('btn-and');
+
+      function showPurpleAt(el){
+        const r = el.getBoundingClientRect();
+        // позиція по центру кнопки у в’юпорті
+        const cx = r.left + r.width/2;
+        const cy = r.top  + r.height/2;
+
+        // розмір фіолетового відносно ширини кнопки
+        const w = Math.max(100, Math.min(180, r.width * 0.9));
+        purple.style.width = w + 'px';
+
+        purple.style.left = cx + 'px';
+        purple.style.top  = cy + 'px';
+
+        // перезапуск анімації
+        purple.classList.remove('show');
+        // без layout thrash: наступний кадр
+        requestAnimationFrame(()=> {
+          purple.classList.add('show');
+          // сховаємо через 3 секунди
+          setTimeout(()=> purple.classList.remove('show'), 3000);
+        });
+      }
+
+      [iosBtn, andBtn].forEach(btn => {
+        btn.addEventListener('click', () => showPurpleAt(btn), {passive:true});
+      });
     })();
   </script>
 </body>
