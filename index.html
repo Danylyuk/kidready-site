@@ -7,42 +7,38 @@
   <meta name="description" content="KidReady — зроби шкільне життя дитини простим для себе і заохочуй свою малечу!" />
   <style>
     :root{
-      --brand:#f39217;
-      --ink:#101114;
-      --muted:#6b7280;
-      --bg:#ffffff;
-      --card:#ffffffee;
-      --radius:14px;
-      --shadow: 0 18px 35px rgba(16,17,20,.08);
+      --brand:#f39217; --ink:#101114; --muted:#6b7280; --bg:#fff;
+      --card:#ffffffee; --radius:14px; --shadow:0 18px 35px rgba(16,17,20,.08);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;max-width:100%;overflow-x:hidden}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;max-width:100%;overflow-x:hidden}
     img{display:block;max-width:100%;height:auto}
+
     .page{min-height:100svh;display:flex;flex-direction:column;position:relative;overflow:hidden}
     .container{flex:1 0 auto;position:relative;z-index:2;max-width:980px;margin:0 auto;padding:clamp(18px,4vw,28px) clamp(14px,5vw,28px)}
 
-    /* logo */
+    /* small logo (з fallback на PNG) */
     .logo-small{display:block;margin:4px auto 10px;width:clamp(28px,4vw,36px);opacity:.95}
-    .brand{ text-align:center;font-weight:800;line-height:1;
+
+    .brand{text-align:center;font-weight:800;line-height:1;
       font-size:clamp(42px,7.2vw,82px);color:var(--brand);
-      margin: 8px 0 clamp(30px,6vw,54px); /* Більший відступ під “KidReady” */
+      margin:8px 0 clamp(30px,6vw,54px); /* великий відступ під словом KidReady */
     }
 
-    h1{ text-align:center;margin:0 0 clamp(12px,2.8vw,18px);
-        font-size:clamp(22px,3.6vw,34px);line-height:1.25;letter-spacing:.2px}
-    .lead{ text-align:center;color:var(--muted);
-           font-size:clamp(16px,2.6vw,20px);margin:0 0 clamp(14px,2.6vw,20px)}
+    h1{text-align:center;margin:0 0 clamp(12px,2.8vw,18px);
+       font-size:clamp(22px,3.6vw,34px);line-height:1.25}
+    .lead{text-align:center;color:var(--muted);
+       font-size:clamp(16px,2.6vw,20px);margin:0 0 clamp(14px,2.6vw,20px)}
 
     /* download block */
-    .downloads{ position:relative;display:grid;gap:clamp(12px,2.6vw,20px);
+    .downloads{position:relative;display:grid;gap:clamp(12px,2.6vw,20px);
       grid-template-columns:1fr;justify-items:center;align-items:start;
-      margin: clamp(6px,1.6vw,8px) 0 clamp(18px,3vw,26px);
-    }
+      margin: clamp(6px,1.6vw,8px) 0 clamp(18px,3vw,26px)}
     .download-col{display:flex;flex-direction:column;align-items:center;gap:10px}
     .dl-icon{width:clamp(34px,5vw,48px);filter:drop-shadow(0 1px 0 rgba(0,0,0,.05))}
     .btn-disabled{
       background:#f1f3f5;color:#8b9098;border:1px solid #e5e7eb;border-radius:var(--radius);
-      padding:12px 18px;font-weight:600;box-shadow:var(--shadow);opacity:.85;pointer-events:none;user-select:none;
+      padding:12px 18px;font-weight:600;box-shadow:var(--shadow);opacity:.9;pointer-events:none;user-select:none;
       white-space:nowrap;min-width:clamp(210px,36vw,260px);text-align:center
     }
     @media (min-width:860px){ .downloads{grid-template-columns:repeat(2,1fr)} }
@@ -65,10 +61,8 @@
       position:fixed; z-index:1; pointer-events:none; user-select:none;
       width:clamp(120px,22vw,220px);
       filter:drop-shadow(0 6px 14px rgba(0,0,0,.08));
-      /* sway + базове випадкове обертання */
-      --base-rot:0deg;
-      animation:sway 5.3s ease-in-out infinite;
-      animation-delay:var(--delay,0s);
+      --base-rot:0deg; animation:sway 5.3s ease-in-out infinite; animation-delay:var(--delay,0s);
+      will-change:transform;
     }
     /* +10% амплітуди */
     @keyframes sway{
@@ -76,58 +70,64 @@
       50%    { transform: translateY(-7px) rotate(calc(var(--base-rot) + .6deg)); }
     }
 
-    /* “сховані” ще на ~15% за краї */
-    .rediki.blue   { left:  max(-15vw,-90px); top:   max(-7vw,-26px); width:clamp(130px,23vw,240px); --delay:.15s;}
-    .rediki.green  { right: max(-15vw,-90px); top:   max(-7vw,-26px); width:clamp(130px,23vw,240px); --delay:.3s;}
-    .rediki.yellow { left:  max(-12vw,-70px); bottom:max(-7vw,-26px); width:clamp(120px,20vw,210px); --delay:.45s;}
-    .rediki.orange { right: max(-12vw,-70px); bottom:max(-7vw,-26px); width:clamp(120px,20vw,210px); --delay:.6s;}
+    /* Desktop — сховані за краї ~12–15% */
+    .rediki.blue   { left:max(-13vw,-78px); top:max(-6vw,-24px);   width:clamp(130px,23vw,240px); --delay:.12s;}
+    .rediki.green  { right:max(-13vw,-78px); top:max(-6vw,-24px);  width:clamp(130px,23vw,240px); --delay:.28s;}
+    .rediki.yellow { left:max(-11vw,-64px);  bottom:max(-6vw,-24px);width:clamp(120px,20vw,210px); --delay:.44s;}
+    .rediki.orange { right:max(-11vw,-64px); bottom:max(-6vw,-24px);width:clamp(120px,20vw,210px); --delay:.6s;}
 
     /* ---- PURPLE PEEK (side head) ---- */
     .peek-area{ position:relative }
     .peek-wrap{
-      position:absolute; right:max(-10vw,-60px); top:55%;
+      position:absolute; right:max(-6vw,-34px); top:56%;
       transform:translateY(-50%);
-      width:clamp(90px,14vw,150px); height:clamp(90px,14vw,150px);
+      width:clamp(96px,16vw,160px); height:clamp(96px,16vw,160px);
       overflow:hidden; pointer-events:none; z-index:3;
     }
     .peek-head{
-      position:absolute; right:-8%; top:50%;
+      position:absolute; right:-6%; top:50%;
       transform-origin:right center;
-      transform: translateX(78%) rotate(-90deg);
-      animation: peek 6s ease-in-out infinite 1.2s;
+      transform: translateX(76%) rotate(-90deg);
+      animation: peek 6s ease-in-out infinite 1.1s;
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.12));
-      width:130%; height:auto;
+      width:134%; height:auto; will-change:transform;
     }
     @keyframes peek{
-      0%,15%   { transform: translateX(78%) rotate(-90deg); }
-      35%,55%  { transform: translateX(32%) rotate(-90deg); } /* виглянув більше */
-      75%,100% { transform: translateX(78%) rotate(-90deg); }
+      0%,15%   { transform: translateX(76%) rotate(-90deg); }
+      35%,55%  { transform: translateX(30%) rotate(-90deg); } /* виглянув більше */
+      75%,100% { transform: translateX(76%) rotate(-90deg); }
     }
 
-    /* mobile tweaks */
+    /* Mobile — робимо видимішими (менше “сховані”) */
     @media (max-width:767px){
       .rediki{ width:clamp(120px,34vw,180px) }
-      .rediki.blue   { left:max(-16vw,-95px); top:max(-8vw,-30px) }
-      .rediki.green  { right:max(-16vw,-95px); top:max(-8vw,-30px) }
-      .rediki.yellow { left:max(-14vw,-80px);  bottom:max(-8vw,-30px) }
-      .rediki.orange { right:max(-14vw,-80px); bottom:max(-8vw,-30px) }
+      .rediki.blue   { left:max(-9vw,-48px);  top:max(-6vw,-22px) }
+      .rediki.green  { right:max(-9vw,-48px); top:max(-6vw,-22px) }
+      .rediki.yellow { left:max(-8vw,-40px);  bottom:max(-5vw,-20px) }
+      .rediki.orange { right:max(-8vw,-40px); bottom:max(-5vw,-20px) }
 
       .downloads{ margin-bottom: clamp(16px,4vw,24px) }
       .btn-disabled{ min-width:min(84vw,340px) }
-      .peek-wrap{ right:max(-8vw,-46px); top:52%; width:clamp(84px,16vw,150px); height:auto }
+
+      .peek-wrap{ right:max(-4vw,-22px); top:58%; width:clamp(100px,20vw,170px); height:auto }
     }
   </style>
 </head>
 <body>
   <main class="page">
     <!-- background rediki -->
-    <img class="rediki blue"   src="assets/rediki-blue.png"   alt="Rediki синій" />
-    <img class="rediki green"  src="assets/rediki-green.png"  alt="Rediki зелений" />
-    <img class="rediki yellow" src="assets/rediki-yellow.png" alt="Rediki жовтий" />
-    <img class="rediki orange" src="assets/rediki-orange.png" alt="Rediki помаранчевий" />
+    <img class="rediki blue"   src="assets/rediki-blue.png"   alt="Rediki синій">
+    <img class="rediki green"  src="assets/rediki-green.png"  alt="Rediki зелений">
+    <img class="rediki yellow" src="assets/rediki-yellow.png" alt="Rediki жовтий">
+    <img class="rediki orange" src="assets/rediki-orange.png" alt="Rediki помаранчевий">
 
     <section class="container">
-      <img class="logo-small" src="assets/logo.svg" alt="KidReady" />
+      <!-- маленьке лого з fallback (SVG -> PNG). Якщо svg нема – завантажиться png і не буде синього “квадратика”. -->
+      <picture>
+        <source srcset="assets/logo.svg" type="image/svg+xml">
+        <img class="logo-small" src="assets/logo.png" alt="KidReady">
+      </picture>
+
       <div class="brand">KidReady</div>
 
       <h1>Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</h1>
@@ -135,15 +135,15 @@
 
       <div class="downloads peek-area">
         <div class="download-col">
-          <img class="dl-icon" src="assets/apple-logo.png" alt="Apple iOS" />
+          <img class="dl-icon" src="assets/apple-logo.png" alt="Apple iOS">
           <div class="btn-disabled">Скачати iOS (скоро)</div>
         </div>
         <div class="download-col">
-          <img class="dl-icon" src="assets/android-logo.png" alt="Android" />
+          <img class="dl-icon" src="assets/android-logo.png" alt="Android">
           <div class="btn-disabled">Скачати Android (скоро)</div>
         </div>
 
-        <!-- purple peeker -->
+        <!-- фіолетовий: виглядає боком біля кнопок -->
         <div class="peek-wrap" aria-hidden="true">
           <img class="peek-head" src="assets/rediki-purple.png" alt="">
         </div>
@@ -151,7 +151,7 @@
 
       <div class="sub-title">Дізнатись першим</div>
       <form id="waitlist" class="form" action="https://formspree.io/f/mrbylwaq" method="POST">
-        <input class="email" type="email" name="email" required autocomplete="email" placeholder="Введіть свою електронну адресу" />
+        <input class="email" type="email" name="email" required autocomplete="email" placeholder="Введіть свою електронну адресу">
         <button class="submit" type="submit">Надіслати</button>
       </form>
       <div id="msg" class="note" role="status"></div>
@@ -161,7 +161,7 @@
   </main>
 
   <script>
-    // без-редиректне відправлення на Formspree
+    // Formspree без редиректу
     const form = document.getElementById('waitlist');
     const msg  = document.getElementById('msg');
     form.addEventListener('submit', async (e)=>{
@@ -174,10 +174,10 @@
       }catch{ msg.textContent='Немає з’єднання. Перевір інтернет і спробуй знову.'; }
     });
 
-    // Невеличка рандомна “косинка” для кожного редіка
+    // невеличка рандомна “косинка” для редіків
     document.querySelectorAll('.rediki').forEach(el=>{
-      const deg = (Math.random()*2 - 1)*3; // від -3° до +3°
-      el.style.setProperty('--base-rot', deg.toFixed(2)+'deg');
+      const deg=(Math.random()*2-1)*3; // -3°..+3°
+      el.style.setProperty('--base-rot',deg.toFixed(2)+'deg');
     });
   </script>
 </body>
