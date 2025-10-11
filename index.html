@@ -3,8 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>KidReady — скоро</title>
+  <title>KidReady</title>
   <meta name="description" content="Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!" />
+
+  <!-- Favicon / Touch icon (використовуємо main_logo.png, браузери самі масштабують) -->
+  <link rel="icon" type="image/png" href="assets/main_logo.png">
+  <link rel="apple-touch-icon" href="assets/main_logo.png">
+
   <style>
     :root{
       --brand:#f59e0b; --text:#121212; --muted:#6b7280; --bg:#fff;
@@ -21,8 +26,15 @@
       padding:clamp(20px,3vw,40px) max(16px,env(safe-area-inset-left)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right));}
     .container{ width:min(960px,92vw); margin:0 auto; position:relative; z-index:2; }
 
-    /* маленький логотип (inline SVG) + назва */
-    .logo-bag{ display:block; margin:8px auto 28px; width:28px; height:28px; }
+    /* логотип-файл */
+    .logo-main{
+      display:block;
+      margin:8px auto 36px;
+      width: clamp(120px, 20vw, 180px);
+      height: auto;
+      user-select:none;
+    }
+
     h1{ margin:0 0 8px; text-align:center; font-weight:800; letter-spacing:.2px;
         font-size:clamp(44px,6.2vw,64px); color:var(--brand); }
     .lead{ text-align:center; font-weight:800; font-size:clamp(20px,3.2vw,32px); margin:0 auto 14px; max-width:22ch; }
@@ -87,7 +99,7 @@
       .green { right:max(-10vw,-44px); top:max(-3.5vh,-14px); }
       .yellow{ left:max(-10vw,-44px); }
       .orange{ right:max(-10vw,-44px); }
-      .logo-bag{ margin:8px auto 32px; }
+      .logo-main{ margin:8px auto 40px; }
     }
   </style>
 </head>
@@ -103,15 +115,13 @@
 
   <main class="wrap">
     <div class="container">
-      <!-- маленький значок-логотип (inline SVG) -->
-      <svg class="logo-bag" viewBox="0 0 64 64" aria-hidden="true">
-        <path fill="#f59e0b" d="M20 26v-3a12 12 0 0 1 24 0v3h4a6 6 0 0 1 6 6v17a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6zm6 0h12v-3a6 6 0 0 0-12 0z"/>
-        <rect x="22" y="36" width="20" height="14" rx="3" fill="#fbbf24"/>
-      </svg>
+
+      <!-- ЛОГО з файлу -->
+      <img class="logo-main" src="assets/main_logo.png" alt="KidReady logo" width="180" height="180" loading="eager" />
 
       <h1>KidReady</h1>
       <p class="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
-      <p class="sub">Скоро тут ти знайдеш додаток для</p>
+      <p class="sub">Тут ти знайдеш додаток <strong>KidReady</strong> для</p>
 
       <div class="stores" id="stores">
         <img class="store-icon" src="assets/apple-logo.png" alt="Apple" width="36" height="36" />
@@ -171,10 +181,8 @@
 
         // перезапуск анімації
         purple.classList.remove('show');
-        // без layout thrash: наступний кадр
         requestAnimationFrame(()=> {
           purple.classList.add('show');
-          // сховаємо через 3 секунди
           setTimeout(()=> purple.classList.remove('show'), 3000);
         });
       }
