@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "2YMTV34J86.com.ua.kidready.app",
+        "paths": [ "/invite/*" ]
+      }
+    ]
+  }
+}
