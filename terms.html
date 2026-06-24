@@ -19,14 +19,22 @@
     p,li{ color:#1f2937; }
     a{ color:var(--brand); }
     .muted{ color:var(--muted); text-align:center; margin:0 0 8px; }
-    .toggle{ text-align:center; margin:18px 0 28px; }
-    .toggle a{ font-weight:700; text-decoration:none; padding:8px 16px; border:1px solid #e5e7eb; border-radius:999px; margin:0 4px; display:inline-block; }
     .sep{ height:1px; background:#eee; margin:48px 0; border:0; }
     footer{ text-align:center; color:var(--muted); padding:24px 0; }
     .back{ display:block; text-align:center; margin-top:28px; }
+    .langsw{ position:fixed; top:14px; right:16px; z-index:20; display:flex; gap:2px;
+      background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:3px; box-shadow:0 10px 30px rgba(0,0,0,.08); }
+    .langsw button{ border:0; background:transparent; color:var(--muted); font-weight:800; font-size:13px;
+      padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .langsw button.active{ background:var(--brand); color:#fff; }
+    #en{ display:none; }
   </style>
 </head>
 <body>
+  <div class="langsw" id="langsw">
+    <button data-lang="uk" type="button">UA</button>
+    <button data-lang="en" type="button">EN</button>
+  </div>
   <div class="wrap">
     <img class="logo" src="assets/main_logo.png" alt="KidReady" />
 
@@ -34,7 +42,6 @@
     <section id="uk">
       <h1>Умови використання</h1>
       <p class="muted">KidReady · Оновлено: 25 червня 2026 р.</p>
-      <div class="toggle"><a href="#en">English version ↓</a></div>
 
       <p>Користуючись застосунком KidReady, ви погоджуєтесь із цими Умовами. Якщо ви не згодні — будь ласка, не використовуйте застосунок.</p>
 
@@ -60,13 +67,10 @@
       <p><a href="mailto:support@kidready.com.ua">support@kidready.com.ua</a></p>
     </section>
 
-    <hr class="sep" />
-
     <!-- ================= ENGLISH ================= -->
     <section id="en">
       <h1>Terms of Use</h1>
       <p class="muted">KidReady · Updated: June 25, 2026</p>
-      <div class="toggle"><a href="#uk">↑ Українська версія</a></div>
 
       <p>By using the KidReady app, you agree to these Terms. If you do not agree, please do not use the app.</p>
 
@@ -95,5 +99,21 @@
     <a class="back" href="index.html">← KidReady</a>
     <footer>© 2026 KidReady. Усі права захищено. / All rights reserved.</footer>
   </div>
+  <script>
+    (function(){
+      let lang = localStorage.getItem('kr_lang') ||
+        ((navigator.language||'uk').toLowerCase().startsWith('uk') ? 'uk' : 'en');
+      function apply(l){
+        lang = l; localStorage.setItem('kr_lang', l);
+        document.documentElement.lang = l;
+        document.getElementById('uk').style.display = l === 'uk' ? '' : 'none';
+        document.getElementById('en').style.display = l === 'en' ? '' : 'none';
+        document.querySelectorAll('#langsw button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+      }
+      document.querySelectorAll('#langsw button').forEach(b =>
+        b.addEventListener('click', () => apply(b.dataset.lang)));
+      apply(lang);
+    })();
+  </script>
 </body>
 </html>

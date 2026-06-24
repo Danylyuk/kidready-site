@@ -94,6 +94,14 @@
       100%{transform:translate(-50%,-50%) scale(1) rotate(0deg)}
     }
 
+    /* перемикач мов зверху справа */
+    .langsw{ position:fixed; top:max(14px,env(safe-area-inset-top)); right:16px; z-index:20;
+      display:flex; gap:2px; background:#fff; border:1px solid #e5e7eb; border-radius:999px;
+      padding:3px; box-shadow:var(--shadow); }
+    .langsw button{ border:0; background:transparent; color:var(--muted); font-weight:800;
+      font-size:13px; padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .langsw button.active{ background:var(--brand); color:#fff; }
+
     @media (max-width: 767px){
       .blue  { left:max(-10vw,-44px); top:max(-2.5vh,-10px); }
       .green { right:max(-10vw,-44px); top:max(-3.5vh,-14px); }
@@ -104,6 +112,11 @@
   </style>
 </head>
 <body>
+  <!-- перемикач мов -->
+  <div class="langsw" id="langsw">
+    <button data-lang="uk" type="button">UA</button>
+    <button data-lang="en" type="button">EN</button>
+  </div>
   <!-- крайні редіки -->
   <div class="edge blue  float-slow" style="--rot:-6deg"><img src="assets/rediki-blue.png"   alt=""></div>
   <div class="edge green float-med"  style="--rot:4deg"><img  src="assets/rediki-green.png"  alt=""></div>
@@ -120,47 +133,92 @@
       <img class="logo-main" src="assets/main_logo.png" alt="KidReady logo" width="180" height="180" loading="eager" />
 
       <h1>KidReady</h1>
-      <p class="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
-      <p class="sub">Тут ти знайдеш додаток <strong>KidReady</strong> для</p>
+      <p class="lead" data-i18n="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
+      <p class="sub" data-i18n-html="sub">Тут ти знайдеш додаток <strong>KidReady</strong> для</p>
 
       <div class="stores" id="stores">
         <img class="store-icon" src="assets/apple-logo.png" alt="Apple" width="36" height="36" />
-        <button id="btn-ios" class="download" type="button">Скачати iOS (скоро)</button>
+        <button id="btn-ios" class="download" type="button" data-i18n="btnIos">Скачати iOS (скоро)</button>
 
         <img class="store-icon" src="assets/android-logo.png" alt="Android" width="36" height="36" />
-        <button id="btn-and" class="download" type="button">Скачати Android (скоро)</button>
+        <button id="btn-and" class="download" type="button" data-i18n="btnAnd">Скачати Android (скоро)</button>
       </div>
 
-      <h2>Дізнатись першим</h2>
+      <h2 data-i18n="waitTitle">Дізнатись першим</h2>
       <form id="waitlist" action="https://formspree.io/f/mrbylwaq" method="POST">
-        <input name="email" type="email" placeholder="Введіть свою електронну адресу" required />
-        <button type="submit">Надіслати</button>
+        <input name="email" type="email" data-i18n-ph="emailPh" placeholder="Введіть свою електронну адресу" required />
+        <button type="submit" data-i18n="send">Надіслати</button>
       </form>
 
       <p id="msg" style="text-align:center;color:#059669;font-weight:600;min-height:28px;margin:12px 0 0;"></p>
     </div>
 
     <footer>
-      © 2026 KidReady. Усі права захищено.<br>
-      <a href="privacy.html" style="color:#6b7280">Політика конфіденційності</a> ·
-      <a href="terms.html" style="color:#6b7280">Умови використання</a>
+      <span data-i18n="rights">© 2026 KidReady. Усі права захищено.</span><br>
+      <a href="privacy.html" style="color:#6b7280" data-i18n="privacy">Політика конфіденційності</a> ·
+      <a href="terms.html" style="color:#6b7280" data-i18n="terms">Умови використання</a>
     </footer>
   </main>
 
   <script>
+    // ---- Двомовність UA/EN ----
+    const I18N = {
+      uk:{
+        lead:'Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!',
+        sub:'Тут ти знайдеш додаток <strong>KidReady</strong> для',
+        btnIos:'Скачати iOS (скоро)', btnAnd:'Скачати Android (скоро)',
+        waitTitle:'Дізнатись першим', emailPh:'Введіть свою електронну адресу', send:'Надіслати',
+        rights:'© 2026 KidReady. Усі права захищено.',
+        privacy:'Політика конфіденційності', terms:'Умови використання',
+        sending:'Відправляємо…', thanks:'Дякуємо! Ми надішлемо новини на ваш email.',
+        errSend:'Упс! Не вдалося надіслати. Спробуйте ще раз.',
+        errNet:'Помилка мережі. Перевірте інтернет і повторіть.',
+        metaDesc:'Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!'
+      },
+      en:{
+        lead:"Make your child's school life simple for you — and motivate your little one!",
+        sub:'Here you\'ll find the <strong>KidReady</strong> app for',
+        btnIos:'Download iOS (soon)', btnAnd:'Download Android (soon)',
+        waitTitle:'Be the first to know', emailPh:'Enter your email address', send:'Send',
+        rights:'© 2026 KidReady. All rights reserved.',
+        privacy:'Privacy Policy', terms:'Terms of Use',
+        sending:'Sending…', thanks:'Thank you! We\'ll send news to your email.',
+        errSend:'Oops! Couldn\'t send. Please try again.',
+        errNet:'Network error. Check your connection and retry.',
+        metaDesc:"Make your child's school life simple for you — and motivate your little one!"
+      }
+    };
+    let LANG = localStorage.getItem('kr_lang') ||
+      ((navigator.language||'uk').toLowerCase().startsWith('uk') ? 'uk' : 'en');
+
+    function applyLang(l){
+      LANG = l; localStorage.setItem('kr_lang', l);
+      const d = I18N[l];
+      document.documentElement.lang = l;
+      document.querySelector('meta[name="description"]').setAttribute('content', d.metaDesc);
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = d[el.dataset.i18n] || el.textContent; });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = d[el.dataset.i18nHtml] || el.innerHTML; });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = d[el.dataset.i18nPh] || el.placeholder; });
+      document.querySelectorAll('#langsw button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+    }
+    document.querySelectorAll('#langsw button').forEach(b =>
+      b.addEventListener('click', () => applyLang(b.dataset.lang)));
+    applyLang(LANG);
+
     // Formspree без редиректу
     (function () {
       const form = document.getElementById('waitlist');
       const msg  = document.getElementById('msg');
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        msg.textContent = 'Відправляємо…';
+        msg.style.color = '#059669';
+        msg.textContent = I18N[LANG].sending;
         const data = new FormData(form);
         try{
           const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
-          if (res.ok) { form.reset(); msg.textContent = 'Дякуємо! Ми надішлемо новини на ваш email.'; }
-          else         { msg.style.color = '#dc2626'; msg.textContent = 'Упс! Не вдалося надіслати. Спробуйте ще раз.'; }
-        }catch{ msg.style.color = '#dc2626'; msg.textContent = 'Помилка мережі. Перевірте інтернет і повторіть.'; }
+          if (res.ok) { form.reset(); msg.style.color = '#059669'; msg.textContent = I18N[LANG].thanks; }
+          else         { msg.style.color = '#dc2626'; msg.textContent = I18N[LANG].errSend; }
+        }catch{ msg.style.color = '#dc2626'; msg.textContent = I18N[LANG].errNet; }
       });
     })();
 
