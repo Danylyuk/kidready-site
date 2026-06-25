@@ -40,24 +40,27 @@
     .lead{ text-align:center; font-weight:800; font-size:clamp(20px,3.2vw,32px); margin:0 auto 14px; max-width:22ch; }
     .sub{ text-align:center; color:var(--muted); font-size:clamp(16px,2.2vw,20px); margin:0 0 18px; }
 
-    /* блок з іконками і кнопками */
-    .stores{ display:grid; place-items:center; gap:14px; margin:8px 0 24px; }
-    .store-icon{ width:36px; height:auto; opacity:.9; }
-    .download{
-      width:min(520px,100%); border:0; border-radius:999px; padding:16px 22px;
-      background:#eef2f7; color:#111; font-weight:700; box-shadow:var(--shadow);
-      opacity:.85; cursor:pointer; user-select:none;
-    }
-
-    h2{ text-align:center; margin:6px 0 10px; font-size:clamp(20px,2.6vw,24px) }
-    form{ width:min(720px,100%); margin:0 auto; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-    input[type="email"]{
-      flex:1 1 420px; min-width:240px; border:1px solid #e5e7eb; border-radius:999px; padding:18px 20px;
-      box-shadow:var(--shadow); outline:none; font-size:16px; }
-    button[type="submit"]{
-      background:var(--brand); color:#fff; font-weight:800; border:0; border-radius:999px; padding:16px 28px;
-      box-shadow:0 12px 40px rgba(245,158,11,.35); transition:transform .15s ease; cursor:pointer; }
-    button[type="submit"]:active{ transform:translateY(1px) }
+    /* блок з QR і кнопками магазинів (розкладка як у DeepCloud) */
+    .appcards{ display:flex; gap:clamp(24px,6vw,72px); justify-content:center; align-items:flex-start;
+      flex-wrap:wrap; margin:10px 0 28px; }
+    .appcard{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+    .qr-wrap{ position:relative; width:clamp(180px,22vw,220px); }
+    .qr{ width:100%; aspect-ratio:1; border-radius:22px; background:#fff; padding:14px;
+      box-shadow:var(--shadow); overflow:hidden; }
+    .qr svg{ width:100%; height:100%; display:block; filter:blur(6px); opacity:.9; }
+    .qr-badge{ position:absolute; inset:0; display:grid; place-items:center; pointer-events:none;
+      font-weight:800; font-size:clamp(15px,2vw,18px); letter-spacing:.5px; color:#111;
+      text-transform:uppercase; }
+    .qr-badge span{ background:rgba(255,255,255,.82); border-radius:999px; padding:8px 16px;
+      box-shadow:0 6px 20px rgba(0,0,0,.12); }
+    .store-btn{ display:flex; align-items:center; gap:12px; min-width:210px;
+      background:#111; color:#fff; border-radius:14px; padding:10px 22px; text-decoration:none;
+      box-shadow:var(--shadow); cursor:pointer; user-select:none; transition:transform .15s ease; }
+    .store-btn:active{ transform:translateY(1px); }
+    .store-btn svg{ width:30px; height:30px; flex:0 0 auto; }
+    .store-btn small{ display:block; font-size:11px; opacity:.85; font-weight:600; }
+    .store-btn b{ display:block; font-size:20px; font-weight:800; line-height:1.1; }
+    .appcard .cap{ color:var(--muted); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; }
 
     footer{ width:100%; text-align:center; color:#6b7280; margin-top:auto; padding-top:18px; z-index:1; }
 
@@ -129,28 +132,41 @@
   <main class="wrap">
     <div class="container">
 
-      <!-- ЛОГО з файлу -->
-      <img class="logo-main" src="assets/main_logo.png" alt="KidReady logo" width="180" height="180" loading="eager" />
+      <!-- ЛОГО з файлу (веде на головну) -->
+      <a href="index.html" aria-label="KidReady — на головну">
+        <img class="logo-main" src="assets/main_logo.png" alt="KidReady logo" width="180" height="180" loading="eager" />
+      </a>
 
       <h1>KidReady</h1>
       <p class="lead" data-i18n="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
-      <p class="sub" data-i18n-html="sub">Тут ти знайдеш додаток <strong>KidReady</strong> для</p>
+      <p class="sub" data-i18n-html="sub">Завантаж <strong>KidReady</strong> для iOS та Android — застосунок уже скоро в магазинах.</p>
 
-      <div class="stores" id="stores">
-        <img class="store-icon" src="assets/apple-logo.png" alt="Apple" width="36" height="36" />
-        <button id="btn-ios" class="download" type="button" data-i18n="btnIos">Скачати iOS (скоро)</button>
-
-        <img class="store-icon" src="assets/android-logo.png" alt="Android" width="36" height="36" />
-        <button id="btn-and" class="download" type="button" data-i18n="btnAnd">Скачати Android (скоро)</button>
+      <div class="appcards">
+        <!-- iOS -->
+        <div class="appcard">
+          <div class="qr-wrap">
+            <div class="qr" id="qr-ios" aria-hidden="true"></div>
+            <div class="qr-badge"><span data-i18n="soon">Скоро</span></div>
+          </div>
+          <a class="store-btn" id="btn-ios" href="#" role="button" aria-disabled="true">
+            <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.564 13.02c-.03-3.06 2.5-4.53 2.61-4.6-1.42-2.08-3.63-2.37-4.42-2.4-1.88-.19-3.67 1.11-4.62 1.11-.95 0-2.42-1.08-3.98-1.05-2.05.03-3.94 1.19-4.99 3.03-2.13 3.69-.54 9.15 1.53 12.14 1.01 1.46 2.21 3.1 3.79 3.04 1.52-.06 2.1-.98 3.93-.98 1.83 0 2.35.98 3.96.95 1.64-.03 2.67-1.49 3.67-2.96 1.16-1.7 1.64-3.35 1.66-3.43-.04-.02-3.18-1.22-3.21-4.85zM14.51 4.16c.84-1.02 1.4-2.43 1.25-3.84-1.21.05-2.67.81-3.53 1.82-.78.9-1.46 2.34-1.28 3.72 1.35.1 2.72-.69 3.56-1.7z"/></svg>
+            <span><small data-i18n="comingTo">Незабаром у</small><b>App Store</b></span>
+          </a>
+          <span class="cap">iOS · iPadOS</span>
+        </div>
+        <!-- Android -->
+        <div class="appcard">
+          <div class="qr-wrap">
+            <div class="qr" id="qr-and" aria-hidden="true"></div>
+            <div class="qr-badge"><span data-i18n="soon">Скоро</span></div>
+          </div>
+          <a class="store-btn" id="btn-and" href="#" role="button" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D3FF" d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 2.3z"/><path fill="#FFCE00" d="M16 15.2l-3-3v-.2l3-3 .1.1 3.6 2.1c1 .6 1 1.6 0 2.2L16 15.2z"/><path fill="#FF3D3D" d="M16.1 15.1L13 12 3.6 21.7c.4.4 1 .4 1.6.1l10.9-6.7z"/><path fill="#00D856" d="M16.1 8.9L5.2 2.2c-.6-.3-1.2-.3-1.6.1L13 12l3.1-3.1z"/></svg>
+            <span><small data-i18n="comingTo">Незабаром у</small><b>Google Play</b></span>
+          </a>
+          <span class="cap">Android</span>
+        </div>
       </div>
-
-      <h2 data-i18n="waitTitle">Дізнатись першим</h2>
-      <form id="waitlist" action="https://formspree.io/f/mrbylwaq" method="POST">
-        <input name="email" type="email" data-i18n-ph="emailPh" placeholder="Введіть свою електронну адресу" required />
-        <button type="submit" data-i18n="send">Надіслати</button>
-      </form>
-
-      <p id="msg" style="text-align:center;color:#059669;font-weight:600;min-height:28px;margin:12px 0 0;"></p>
     </div>
 
     <footer>
@@ -165,26 +181,18 @@
     const I18N = {
       uk:{
         lead:'Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!',
-        sub:'Тут ти знайдеш додаток <strong>KidReady</strong> для',
-        btnIos:'Скачати iOS (скоро)', btnAnd:'Скачати Android (скоро)',
-        waitTitle:'Дізнатись першим', emailPh:'Введіть свою електронну адресу', send:'Надіслати',
+        sub:'Завантаж <strong>KidReady</strong> для iOS та Android — застосунок уже скоро в магазинах.',
+        soon:'Скоро', comingTo:'Незабаром у',
         rights:'© 2026 KidReady. Усі права захищено.',
         privacy:'Політика конфіденційності', terms:'Умови використання',
-        sending:'Відправляємо…', thanks:'Дякуємо! Ми надішлемо новини на ваш email.',
-        errSend:'Упс! Не вдалося надіслати. Спробуйте ще раз.',
-        errNet:'Помилка мережі. Перевірте інтернет і повторіть.',
         metaDesc:'Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!'
       },
       en:{
         lead:"Make your child's school life simple for you — and motivate your little one!",
-        sub:'Here you\'ll find the <strong>KidReady</strong> app for',
-        btnIos:'Download iOS (soon)', btnAnd:'Download Android (soon)',
-        waitTitle:'Be the first to know', emailPh:'Enter your email address', send:'Send',
+        sub:'Get <strong>KidReady</strong> for iOS and Android — the app is coming soon to the stores.',
+        soon:'Soon', comingTo:'Coming soon to',
         rights:'© 2026 KidReady. All rights reserved.',
         privacy:'Privacy Policy', terms:'Terms of Use',
-        sending:'Sending…', thanks:'Thank you! We\'ll send news to your email.',
-        errSend:'Oops! Couldn\'t send. Please try again.',
-        errNet:'Network error. Check your connection and retry.',
         metaDesc:"Make your child's school life simple for you — and motivate your little one!"
       }
     };
@@ -205,21 +213,32 @@
       b.addEventListener('click', () => applyLang(b.dataset.lang)));
     applyLang(LANG);
 
-    // Formspree без редиректу
+    // Фейкові QR (заблюрені) — апки ще не в магазинах
     (function () {
-      const form = document.getElementById('waitlist');
-      const msg  = document.getElementById('msg');
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        msg.style.color = '#059669';
-        msg.textContent = I18N[LANG].sending;
-        const data = new FormData(form);
-        try{
-          const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
-          if (res.ok) { form.reset(); msg.style.color = '#059669'; msg.textContent = I18N[LANG].thanks; }
-          else         { msg.style.color = '#dc2626'; msg.textContent = I18N[LANG].errSend; }
-        }catch{ msg.style.color = '#dc2626'; msg.textContent = I18N[LANG].errNet; }
-      });
+      function fakeQR(seed){
+        const N = 25, cell = 100 / N;
+        let s = seed >>> 0;
+        const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+        let r = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#fff"/>`;
+        // три фіндер-патерни (кути)
+        const finder = (x, y) => {
+          r += `<rect x="${x*cell}" y="${y*cell}" width="${7*cell}" height="${7*cell}" fill="#000"/>`;
+          r += `<rect x="${(x+1)*cell}" y="${(y+1)*cell}" width="${5*cell}" height="${5*cell}" fill="#fff"/>`;
+          r += `<rect x="${(x+2)*cell}" y="${(y+2)*cell}" width="${3*cell}" height="${3*cell}" fill="#000"/>`;
+        };
+        const inFinder = (i,j) =>
+          (i<8 && j<8) || (i<8 && j>=N-8) || (i>=N-8 && j<8);
+        for (let i=0;i<N;i++) for (let j=0;j<N;j++){
+          if (inFinder(i,j)) continue;
+          if (rnd() > .5) r += `<rect x="${i*cell}" y="${j*cell}" width="${cell}" height="${cell}" fill="#000"/>`;
+        }
+        finder(0,0); finder(N-7,0); finder(0,N-7);
+        return r + `</svg>`;
+      }
+      const ios = document.getElementById('qr-ios');
+      const and = document.getElementById('qr-and');
+      if (ios) ios.innerHTML = fakeQR(20260625);
+      if (and) and.innerHTML = fakeQR(99887766);
     })();
 
     // Показ фіолетового редіка в точці кліку по кнопці (3 сек)
@@ -250,7 +269,7 @@
       }
 
       [iosBtn, andBtn].forEach(btn => {
-        btn.addEventListener('click', () => showPurpleAt(btn), {passive:true});
+        btn.addEventListener('click', (e) => { e.preventDefault(); showPurpleAt(btn); });
       });
     })();
   </script>
