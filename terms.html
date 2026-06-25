@@ -106,8 +106,8 @@
       function apply(l){
         lang = l; localStorage.setItem('kr_lang', l);
         document.documentElement.lang = l;
-        document.getElementById('uk').style.display = l === 'uk' ? '' : 'none';
-        document.getElementById('en').style.display = l === 'en' ? '' : 'none';
+        document.getElementById('uk').style.display = l === 'uk' ? 'block' : 'none';
+        document.getElementById('en').style.display = l === 'en' ? 'block' : 'none';
         document.querySelectorAll('#langsw button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
       }
       document.querySelectorAll('#langsw button').forEach(b =>
