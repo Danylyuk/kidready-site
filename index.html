@@ -3,275 +3,288 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>KidReady</title>
-  <meta name="description" content="Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!" />
-
-  <!-- Favicon / Touch icon (використовуємо main_logo.png, браузери самі масштабують) -->
-  <link rel="icon" type="image/png" href="assets/main_logo.png">
-  <link rel="apple-touch-icon" href="assets/main_logo.png">
-
-  <style>
-    :root{
-      --brand:#f59e0b; --text:#121212; --muted:#6b7280; --bg:#fff;
-      --shadow:0 10px 30px rgba(0,0,0,.08); --radius:16px;
-      --floatY:12px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%; margin:0; background:var(--bg); color:var(--text);
-      font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
-      overflow-x:hidden;}
-    img{display:block; max-width:100%; height:auto}
-
-    .wrap{min-height:100svh; display:flex; flex-direction:column; align-items:center;
-      padding:clamp(20px,3vw,40px) max(16px,env(safe-area-inset-left)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right));}
-    .container{ width:min(960px,92vw); margin:0 auto; position:relative; z-index:2; }
-
-    /* логотип-файл */
-    .logo-main{
-      display:block;
-      margin:8px auto 36px;
-      width: clamp(120px, 20vw, 180px);
-      height: auto;
-      user-select:none;
-    }
-
-    h1{ margin:0 0 8px; text-align:center; font-weight:800; letter-spacing:.2px;
-        font-size:clamp(44px,6.2vw,64px); color:var(--brand); }
-    .lead{ text-align:center; font-weight:800; font-size:clamp(20px,3.2vw,32px); margin:0 auto 14px; max-width:22ch; }
-    .sub{ text-align:center; color:var(--muted); font-size:clamp(16px,2.2vw,20px); margin:0 0 18px; }
-
-    /* блок з QR і кнопками магазинів (розкладка як у DeepCloud) */
-    .appcards{ display:flex; gap:clamp(24px,6vw,72px); justify-content:center; align-items:flex-start;
-      flex-wrap:wrap; margin:10px 0 28px; }
-    .appcard{ display:flex; flex-direction:column; align-items:center; gap:16px; }
-    .qr-wrap{ position:relative; width:clamp(180px,22vw,220px); }
-    .qr{ width:100%; aspect-ratio:1; border-radius:22px; background:#fff; padding:14px;
-      box-shadow:var(--shadow); overflow:hidden; }
-    .qr svg{ width:100%; height:100%; display:block; filter:blur(6px); opacity:.9; }
-    .qr-badge{ position:absolute; inset:0; display:grid; place-items:center; pointer-events:none;
-      font-weight:800; font-size:clamp(15px,2vw,18px); letter-spacing:.5px; color:#111;
-      text-transform:uppercase; }
-    .qr-badge span{ background:rgba(255,255,255,.82); border-radius:999px; padding:8px 16px;
-      box-shadow:0 6px 20px rgba(0,0,0,.12); }
-    .store-btn{ display:flex; align-items:center; gap:12px; min-width:210px;
-      background:#111; color:#fff; border-radius:14px; padding:10px 22px; text-decoration:none;
-      box-shadow:var(--shadow); cursor:pointer; user-select:none; transition:transform .15s ease; }
-    .store-btn:active{ transform:translateY(1px); }
-    .store-btn svg{ width:30px; height:30px; flex:0 0 auto; }
-    .store-btn small{ display:block; font-size:11px; opacity:.85; font-weight:600; }
-    .store-btn b{ display:block; font-size:20px; font-weight:800; line-height:1.1; }
-    .appcard .cap{ color:var(--muted); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; }
-
-    footer{ width:100%; text-align:center; color:#6b7280; margin-top:auto; padding-top:18px; z-index:1; }
-
-    /* редіки по краях */
-    .edge{ position:fixed; z-index:0; pointer-events:none; filter:drop-shadow(0 10px 25px rgba(0,0,0,.12)); }
-    .edge img{ width:100%; height:auto; }
-    .blue  { left:max(-8vw,-40px);  top:max(-2vh,-10px);  width:clamp(160px,18vw,200px); transform:rotate(-6deg); }
-    .green { right:max(-8vw,-40px); top:max(-3vh,-12px);  width:clamp(170px,19vw,210px); transform:rotate(4deg); }
-    .yellow{ left:max(-7vw,-36px);  bottom:max(-3vh,-12px); width:clamp(150px,17vw,190px); transform:rotate(5deg); }
-    .orange{ right:max(-7vw,-36px); bottom:max(-2vh,-10px); width:clamp(150px,17vw,190px); transform:rotate(-4deg); }
-    .float-slow { animation:float 5.2s ease-in-out -1s infinite; }
-    .float-med  { animation:float 4.6s ease-in-out -.3s infinite; }
-    .float-fast { animation:float 3.8s ease-in-out -.7s infinite; }
-    @keyframes float{
-      0%,100%{ transform:translateY(calc(var(--floatY) * -0.2)) rotate(var(--rot,0deg)); }
-      50%    { transform:translateY(var(--floatY)) rotate(var(--rot,0deg)); }
-    }
-
-    /* фіолетовий, який з’являється на кліку по кнопці */
-    #clickPurple{
-      position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) rotate(-8deg) scale(.92);
-      width:140px; height:auto; z-index:8; pointer-events:none;
-      opacity:0; transition:opacity .25s ease, transform .25s ease;
-      filter:drop-shadow(0 12px 30px rgba(0,0,0,.18));
-      will-change:transform,opacity,left,top,width;
-    }
-    #clickPurple.show{
-      opacity:1; transform:translate(-50%,-50%) rotate(2deg) scale(1);
-      animation:pop 320ms ease-out;
-    }
-    @keyframes pop{
-      0%{transform:translate(-50%,-50%) scale(.85) rotate(-6deg)}
-      60%{transform:translate(-50%,-50%) scale(1.06) rotate(2deg)}
-      100%{transform:translate(-50%,-50%) scale(1) rotate(0deg)}
-    }
-
-    /* перемикач мов зверху справа */
-    .langsw{ position:fixed; top:max(14px,env(safe-area-inset-top)); right:16px; z-index:20;
-      display:flex; gap:2px; background:#fff; border:1px solid #e5e7eb; border-radius:999px;
-      padding:3px; box-shadow:var(--shadow); }
-    .langsw button{ border:0; background:transparent; color:var(--muted); font-weight:800;
-      font-size:13px; padding:6px 12px; border-radius:999px; cursor:pointer; }
-    .langsw button.active{ background:var(--brand); color:#fff; }
-
-    @media (max-width: 767px){
-      .blue  { left:max(-10vw,-44px); top:max(-2.5vh,-10px); }
-      .green { right:max(-10vw,-44px); top:max(-3.5vh,-14px); }
-      .yellow{ left:max(-10vw,-44px); }
-      .orange{ right:max(-10vw,-44px); }
-      .logo-main{ margin:8px auto 40px; }
-    }
-  </style>
+  <title>KidReady — шкільне життя дитини без хаосу</title>
+  <meta name="description" content="KidReady — сімейний застосунок, що робить шкільне життя дитини простим: задачі, зірки, винагороди, розклад і календар." />
+  <link rel="icon" type="image/png" href="assets/main_logo.png" />
+  <link rel="apple-touch-icon" href="assets/main_logo.png" />
+  <meta property="og:title" content="KidReady — шкільне життя дитини без хаосу" />
+  <meta property="og:description" content="Задачі, зірки, винагороди, розклад і календар для всієї родини. Безкоштовно, без реклами." />
+  <meta property="og:image" content="assets/main_logo.png" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap&subset=cyrillic,latin" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <!-- перемикач мов -->
-  <div class="langsw" id="langsw">
+  <div class="lang" id="lang">
     <button data-lang="uk" type="button">UA</button>
     <button data-lang="en" type="button">EN</button>
   </div>
-  <!-- крайні редіки -->
-  <div class="edge blue  float-slow" style="--rot:-6deg"><img src="assets/rediki-blue.png"   alt=""></div>
-  <div class="edge green float-med"  style="--rot:4deg"><img  src="assets/rediki-green.png"  alt=""></div>
-  <div class="edge yellow float-med" style="--rot:5deg"><img  src="assets/rediki-yellow.png" alt=""></div>
-  <div class="edge orange float-fast" style="--rot:-4deg"><img src="assets/rediki-orange.png" alt=""></div>
 
-  <!-- фіолетовий, який показуємо на клік -->
-  <img id="clickPurple" src="assets/rediki-purple.png" alt="">
-
-  <main class="wrap">
-    <div class="container">
-
-      <!-- ЛОГО з файлу (веде на головну) -->
-      <a href="index.html" aria-label="KidReady — на головну">
-        <img class="logo-main" src="assets/main_logo.png" alt="KidReady logo" width="180" height="180" loading="eager" />
-      </a>
-
-      <h1>KidReady</h1>
-      <p class="lead" data-i18n="lead">Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!</p>
-      <p class="sub" data-i18n-html="sub">Завантаж <strong>KidReady</strong> для iOS та Android — застосунок уже скоро в магазинах.</p>
-
-      <div class="appcards">
-        <!-- iOS -->
-        <div class="appcard">
-          <div class="qr-wrap">
-            <div class="qr" id="qr-ios" aria-hidden="true"></div>
-            <div class="qr-badge"><span data-i18n="soon">Скоро</span></div>
-          </div>
-          <a class="store-btn" id="btn-ios" href="#" role="button" aria-disabled="true">
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <div class="logo">
+          <img src="assets/main_logo.png" alt="KidReady" />
+        </div>
+        <span class="eyebrow" data-i18n="heroBadge">Сімейний застосунок</span>
+        <h1 data-i18n-html="heroTitle">Шкільне життя дитини — <span class="accent">без хаосу</span></h1>
+        <p class="lead sub" data-i18n="heroSub">KidReady перетворює ранкові «ти зібрав портфель?» на гру: задачі, зірки й винагороди, які дитина любить виконувати.</p>
+        <div class="btn-row">
+          <a class="store" href="#get">
             <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.564 13.02c-.03-3.06 2.5-4.53 2.61-4.6-1.42-2.08-3.63-2.37-4.42-2.4-1.88-.19-3.67 1.11-4.62 1.11-.95 0-2.42-1.08-3.98-1.05-2.05.03-3.94 1.19-4.99 3.03-2.13 3.69-.54 9.15 1.53 12.14 1.01 1.46 2.21 3.1 3.79 3.04 1.52-.06 2.1-.98 3.93-.98 1.83 0 2.35.98 3.96.95 1.64-.03 2.67-1.49 3.67-2.96 1.16-1.7 1.64-3.35 1.66-3.43-.04-.02-3.18-1.22-3.21-4.85zM14.51 4.16c.84-1.02 1.4-2.43 1.25-3.84-1.21.05-2.67.81-3.53 1.82-.78.9-1.46 2.34-1.28 3.72 1.35.1 2.72-.69 3.56-1.7z"/></svg>
             <span><small data-i18n="comingTo">Незабаром у</small><b>App Store</b></span>
           </a>
-          <span class="cap">iOS · iPadOS</span>
-        </div>
-        <!-- Android -->
-        <div class="appcard">
-          <div class="qr-wrap">
-            <div class="qr" id="qr-and" aria-hidden="true"></div>
-            <div class="qr-badge"><span data-i18n="soon">Скоро</span></div>
-          </div>
-          <a class="store-btn" id="btn-and" href="#" role="button" aria-disabled="true">
+          <a class="store" href="#get">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D3FF" d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 2.3z"/><path fill="#FFCE00" d="M16 15.2l-3-3v-.2l3-3 .1.1 3.6 2.1c1 .6 1 1.6 0 2.2L16 15.2z"/><path fill="#FF3D3D" d="M16.1 15.1L13 12 3.6 21.7c.4.4 1 .4 1.6.1l10.9-6.7z"/><path fill="#00D856" d="M16.1 8.9L5.2 2.2c-.6-.3-1.2-.3-1.6.1L13 12l3.1-3.1z"/></svg>
             <span><small data-i18n="comingTo">Незабаром у</small><b>Google Play</b></span>
           </a>
-          <span class="cap">Android</span>
+        </div>
+        <p class="hero-cta-note" data-i18n="heroNote">Безкоштовно · iOS та Android · українською та англійською</p>
+      </div>
+
+      <div class="hero-art">
+        <img class="redik r1 float d1" src="assets/rediki-blue.png" alt="" />
+        <img class="redik r2 float d2" src="assets/rediki-green.png" alt="" />
+        <img class="redik r3 float d3" src="assets/rediki-yellow.png" alt="" />
+        <img class="redik r4 float" src="assets/rediki-orange.png" alt="" />
+        <div class="phone tilt">
+          <img src="assets/screens/child100.png" alt="KidReady" />
         </div>
       </div>
     </div>
+  </header>
 
-    <footer>
-      <span data-i18n="rights">© 2026 KidReady. Усі права захищено.</span><br>
-      <a href="privacy.html" style="color:#6b7280" data-i18n="privacy">Політика конфіденційності</a> ·
-      <a href="terms.html" style="color:#6b7280" data-i18n="terms">Умови використання</a>
-    </footer>
-  </main>
+  <!-- ================= TRUST STRIP ================= -->
+  <section class="trust">
+    <div class="wrap reveal">
+      <div class="item"><span class="ic">💛</span><span data-i18n="trust1">Безкоштовно</span></div>
+      <div class="item"><span class="ic">🚫</span><span data-i18n="trust2">Без реклами</span></div>
+      <div class="item"><span class="ic">🌐</span><span data-i18n="trust3">Дві мови</span></div>
+      <div class="item"><span class="ic">📱</span><span data-i18n="trust4">iOS та Android</span></div>
+      <div class="item"><span class="ic">🔒</span><span data-i18n="trust5">Дитячі дані захищені</span></div>
+    </div>
+  </section>
 
-  <script>
-    // ---- Двомовність UA/EN ----
-    const I18N = {
-      uk:{
-        lead:'Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!',
-        sub:'Завантаж <strong>KidReady</strong> для iOS та Android — застосунок уже скоро в магазинах.',
-        soon:'Скоро', comingTo:'Незабаром у',
-        rights:'© 2026 KidReady. Усі права захищено.',
-        privacy:'Політика конфіденційності', terms:'Умови використання',
-        metaDesc:'Зроби шкільне життя дитини простим для себе і заохочуй свою малечу!'
-      },
-      en:{
-        lead:"Make your child's school life simple for you — and motivate your little one!",
-        sub:'Get <strong>KidReady</strong> for iOS and Android — the app is coming soon to the stores.',
-        soon:'Soon', comingTo:'Coming soon to',
-        rights:'© 2026 KidReady. All rights reserved.',
-        privacy:'Privacy Policy', terms:'Terms of Use',
-        metaDesc:"Make your child's school life simple for you — and motivate your little one!"
-      }
-    };
-    let LANG = localStorage.getItem('kr_lang') ||
-      ((navigator.language||'uk').toLowerCase().startsWith('uk') ? 'uk' : 'en');
+  <!-- ================= PROBLEM ================= -->
+  <section>
+    <div class="wrap center reveal" style="max-width:760px">
+      <span class="eyebrow" data-i18n="problemEyebrow">Знайомо?</span>
+      <h2 data-i18n="problemTitle">Ранок. «Ти зібрав портфель?» ×10</h2>
+      <p class="lead" data-i18n="problemText">Розклад у голові, доручення на папірцях, мотивація — на нулі. KidReady збирає це в одному місці й перетворює рутину на гру, де дитина сама хоче бути готовою.</p>
+    </div>
+  </section>
 
-    function applyLang(l){
-      LANG = l; localStorage.setItem('kr_lang', l);
-      const d = I18N[l];
-      document.documentElement.lang = l;
-      document.querySelector('meta[name="description"]').setAttribute('content', d.metaDesc);
-      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = d[el.dataset.i18n] || el.textContent; });
-      document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = d[el.dataset.i18nHtml] || el.innerHTML; });
-      document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = d[el.dataset.i18nPh] || el.placeholder; });
-      document.querySelectorAll('#langsw button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-    }
-    document.querySelectorAll('#langsw button').forEach(b =>
-      b.addEventListener('click', () => applyLang(b.dataset.lang)));
-    applyLang(LANG);
+  <!-- ================= HOW IT WORKS ================= -->
+  <section>
+    <div class="wrap center">
+      <span class="eyebrow reveal" data-i18n="howEyebrow">Як це працює</span>
+      <h2 class="reveal" data-i18n="howTitle">Три кроки до спокійного ранку</h2>
+      <div class="steps-grid">
+        <div class="step reveal d1">
+          <div class="num">1</div>
+          <h3 data-i18n="step1t">Створіть родину</h3>
+          <p data-i18n="step1d">Зареєструйтесь і запросіть маму, тата чи няню за одним кодом. Дитина заходить за тим самим кодом — без пошти й паролів.</p>
+        </div>
+        <div class="step reveal d2">
+          <div class="num">2</div>
+          <h3 data-i18n="step2t">Поставте задачі</h3>
+          <p data-i18n="step2d">Зіркові задачі для дитини, доручення для всіх, розклад уроків і нагадування в календарі — усе за пару тапів.</p>
+        </div>
+        <div class="step reveal d3">
+          <div class="num">3</div>
+          <h3 data-i18n="step3t">Дитина грає й росте</h3>
+          <p data-i18n="step3d">За виконані справи дитина отримує зірки, оживляє свого Редіка й обмінює зірки на реальні винагороди від вас.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // Фейкові QR (заблюрені) — апки ще не в магазинах
-    (function () {
-      function fakeQR(seed){
-        const N = 25, cell = 100 / N;
-        let s = seed >>> 0;
-        const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
-        let r = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#fff"/>`;
-        // три фіндер-патерни (кути)
-        const finder = (x, y) => {
-          r += `<rect x="${x*cell}" y="${y*cell}" width="${7*cell}" height="${7*cell}" fill="#000"/>`;
-          r += `<rect x="${(x+1)*cell}" y="${(y+1)*cell}" width="${5*cell}" height="${5*cell}" fill="#fff"/>`;
-          r += `<rect x="${(x+2)*cell}" y="${(y+2)*cell}" width="${3*cell}" height="${3*cell}" fill="#000"/>`;
-        };
-        const inFinder = (i,j) =>
-          (i<8 && j<8) || (i<8 && j>=N-8) || (i>=N-8 && j<8);
-        for (let i=0;i<N;i++) for (let j=0;j<N;j++){
-          if (inFinder(i,j)) continue;
-          if (rnd() > .5) r += `<rect x="${i*cell}" y="${j*cell}" width="${cell}" height="${cell}" fill="#000"/>`;
-        }
-        finder(0,0); finder(N-7,0); finder(0,N-7);
-        return r + `</svg>`;
-      }
-      const ios = document.getElementById('qr-ios');
-      const and = document.getElementById('qr-and');
-      if (ios) ios.innerHTML = fakeQR(20260625);
-      if (and) and.innerHTML = fakeQR(99887766);
-    })();
+  <!-- ================= FEATURES (sticky phone) ================= -->
+  <section>
+    <div class="wrap center" style="margin-bottom:10px">
+      <span class="eyebrow reveal" data-i18n="featEyebrow">Можливості</span>
+      <h2 class="reveal" data-i18n="featTitle">Усе, щоб дитина була готова</h2>
+    </div>
+    <div class="wrap features-grid">
+      <div class="features-left">
 
-    // Показ фіолетового редіка в точці кліку по кнопці (3 сек)
-    (function () {
-      const purple = document.getElementById('clickPurple');
-      const iosBtn = document.getElementById('btn-ios');
-      const andBtn = document.getElementById('btn-and');
+        <div class="feature-block" data-screen="assets/screens/child100.png">
+          <div class="card reveal">
+            <div class="emoji">🐻</div>
+            <h3 data-i18n="f1t">Метр готовності + Редік</h3>
+            <p data-i18n="f1d">Дитина бачить свій прогрес у відсотках. Виконує справи — і її Редік оживає та радіє. Проста й чесна мотивація.</p>
+          </div>
+          <div class="feature-phone"><div class="phone"><img src="assets/screens/child100.png" alt="" /></div></div>
+        </div>
 
-      function showPurpleAt(el){
-        const r = el.getBoundingClientRect();
-        // позиція по центру кнопки у в’юпорті
-        const cx = r.left + r.width/2;
-        const cy = r.top  + r.height/2;
+        <div class="feature-block" data-screen="assets/screens/rewards.png">
+          <div class="card reveal">
+            <div class="emoji">🎁</div>
+            <h3 data-i18n="f2t">Зірки та винагороди</h3>
+            <p data-i18n="f2d">За кожну справу — зірки. Накопичені зірки дитина обмінює на винагороди, які ви самі придумали: морозиво, нова гра, прогулянка.</p>
+          </div>
+          <div class="feature-phone"><div class="phone"><img src="assets/screens/rewards.png" alt="" /></div></div>
+        </div>
 
-        // розмір фіолетового відносно ширини кнопки
-        const w = Math.max(100, Math.min(180, r.width * 0.9));
-        purple.style.width = w + 'px';
+        <div class="feature-block" data-screen="assets/screens/chores.png">
+          <div class="card reveal">
+            <div class="emoji">✅</div>
+            <h3 data-i18n="f3t">Доручення для всіх</h3>
+            <p data-i18n="f3d">Будь-хто в родині ставить доручення будь-кому — з виконавцем, датою й часом. Пуш прилітає кому треба, нагадування не загубиться.</p>
+          </div>
+          <div class="feature-phone"><div class="phone"><img src="assets/screens/chores.png" alt="" /></div></div>
+        </div>
 
-        purple.style.left = cx + 'px';
-        purple.style.top  = cy + 'px';
+        <div class="feature-block" data-screen="assets/screens/command.png">
+          <div class="card reveal">
+            <div class="emoji">📅</div>
+            <h3 data-i18n="f4t">Розклад уроків</h3>
+            <p data-i18n="f4d">Зручний тижневий розклад із часом початку уроків. Дитина завжди знає, що брати з собою завтра.</p>
+          </div>
+          <div class="feature-phone"><div class="phone"><img src="assets/screens/command.png" alt="" /></div></div>
+        </div>
 
-        // перезапуск анімації
-        purple.classList.remove('show');
-        requestAnimationFrame(()=> {
-          purple.classList.add('show');
-          setTimeout(()=> purple.classList.remove('show'), 3000);
-        });
-      }
+        <div class="feature-block" data-screen="assets/screens/calendar.png">
+          <div class="card reveal">
+            <div class="emoji">🗓️</div>
+            <h3 data-i18n="f5t">Сімейний календар</h3>
+            <p data-i18n="f5d">Постав нагадування на дату — і в потрібний час пуш отримають усі члени родини. Сімейна вечеря, лікар, день народження — ніхто не забуде.</p>
+          </div>
+          <div class="feature-phone"><div class="phone"><img src="assets/screens/calendar.png" alt="" /></div></div>
+        </div>
 
-      [iosBtn, andBtn].forEach(btn => {
-        btn.addEventListener('click', (e) => { e.preventDefault(); showPurpleAt(btn); });
-      });
-    })();
-  </script>
+        <div class="feature-block" data-screen="assets/screens/rediki.png">
+          <div class="card reveal">
+            <div class="emoji">🦝</div>
+            <h3 data-i18n="f6t">Колекція Редіків</h3>
+            <p data-i18n="f6d">П'ять унікальних Редіків, яких дитина відкриває, заробляючи зірки. Чудовий стимул довести справи до кінця.</p>
+          </div>
+          <div class="feature-phone"><div class="phone"><img src="assets/screens/rediki.png" alt="" /></div></div>
+        </div>
+
+      </div>
+      <div class="features-sticky">
+        <div class="phone"><img id="sticky-screen" src="assets/screens/child100.png" alt="KidReady" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TWO WORLDS ================= -->
+  <section>
+    <div class="wrap center">
+      <span class="eyebrow reveal" data-i18n="worldsEyebrow">Два світи в одному застосунку</span>
+      <h2 class="reveal" data-i18n="worldsTitle">Командний пункт для вас — гра для дитини</h2>
+      <div class="worlds">
+        <div class="world parents reveal d1">
+          <h3 data-i18n="parentsT">Для батьків</h3>
+          <ul>
+            <li data-i18n="parentsLi1">Командний пункт з усіма зонами</li>
+            <li data-i18n="parentsLi2">Задачі, доручення, розклад, календар</li>
+            <li data-i18n="parentsLi3">Кілька дітей і кілька дорослих</li>
+            <li data-i18n="parentsLi4">Пуші про виконання справ</li>
+          </ul>
+        </div>
+        <div class="world kids reveal d2">
+          <h3 data-i18n="kidsT">Для дитини</h3>
+          <ul>
+            <li data-i18n="kidsLi1">Власний дитячий екран</li>
+            <li data-i18n="kidsLi2">Метр готовності та зірки</li>
+            <li data-i18n="kidsLi3">Оживлення Редіка</li>
+            <li data-i18n="kidsLi4">Магазин винагород</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COLLECTION ================= -->
+  <section>
+    <div class="wrap center">
+      <span class="eyebrow reveal" data-i18n="collEyebrow">Гейміфікація</span>
+      <h2 class="reveal" data-i18n="collTitle">Збирай усіх Редіків</h2>
+      <p class="lead reveal" data-i18n="collText" style="max-width:600px;margin-inline:auto">Що більше справ виконано — то більше зірок і нових Редіків у колекції.</p>
+      <div class="coll reveal">
+        <img src="assets/rediki-blue.png" alt="" />
+        <img src="assets/rediki-green.png" alt="" />
+        <img src="assets/rediki-yellow.png" alt="" />
+        <img src="assets/rediki-orange.png" alt="" />
+        <img src="assets/rediki-purple.png" alt="" />
+      </div>
+      <div class="stats">
+        <div class="stat reveal d1"><div class="n" data-count="5">5</div><div class="l" data-i18n="stat1l">Редіків зібрати</div></div>
+        <div class="stat reveal d2"><div class="n" data-count="2">2</div><div class="l" data-i18n="stat2l">мови (UA/EN)</div></div>
+        <div class="stat reveal d3"><div class="n" data-i18n="stat3n">0₴</div><div class="l" data-i18n="stat3l">назавжди</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRIVACY ================= -->
+  <section class="privacy">
+    <div class="wrap reveal">
+      <span class="eyebrow" data-i18n="privEyebrow">Спокій батьків</span>
+      <h2 data-i18n="privTitle">Безпечно для дітей</h2>
+      <p class="lead" style="max-width:640px;margin-inline:auto" data-i18n="privText">Жодної реклами й трекінгу. Дитина заходить анонімно за сімейним кодом — без пошти й особистих контактів. Дані бачить лише ваша родина.</p>
+      <div class="pills">
+        <span class="pill" data-i18n="privP1">Без реклами</span>
+        <span class="pill" data-i18n="privP2">Без трекінгу</span>
+        <span class="pill" data-i18n="privP3">Анонімний вхід дитини</span>
+        <span class="pill" data-i18n="privP4">Дані лише в родині</span>
+      </div>
+      <p style="margin-top:18px"><a href="privacy.html" data-i18n="privLink">Політика конфіденційності</a></p>
+    </div>
+  </section>
+
+  <!-- ================= CTA / GET ================= -->
+  <section id="get">
+    <div class="wrap">
+      <div class="wrap" style="width:100%">
+        <span class="eyebrow reveal center" style="display:block" data-i18n="ctaEyebrow">Готові спробувати?</span>
+        <h2 class="reveal center" data-i18n="ctaTitle">Завантажте KidReady</h2>
+        <p class="lead reveal center" style="max-width:560px;margin-inline:auto" data-i18n="ctaText">Безкоштовно для iOS та Android. Скануй QR або тисни кнопку магазину.</p>
+        <div class="appcards reveal">
+          <div class="appcard">
+            <div class="qr-wrap">
+              <div class="qr" id="qr-ios" aria-hidden="true"></div>
+              <div class="qr-badge"><span data-i18n="soon">Скоро</span></div>
+            </div>
+            <a class="store" href="#">
+              <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.564 13.02c-.03-3.06 2.5-4.53 2.61-4.6-1.42-2.08-3.63-2.37-4.42-2.4-1.88-.19-3.67 1.11-4.62 1.11-.95 0-2.42-1.08-3.98-1.05-2.05.03-3.94 1.19-4.99 3.03-2.13 3.69-.54 9.15 1.53 12.14 1.01 1.46 2.21 3.1 3.79 3.04 1.52-.06 2.1-.98 3.93-.98 1.83 0 2.35.98 3.96.95 1.64-.03 2.67-1.49 3.67-2.96 1.16-1.7 1.64-3.35 1.66-3.43-.04-.02-3.18-1.22-3.21-4.85zM14.51 4.16c.84-1.02 1.4-2.43 1.25-3.84-1.21.05-2.67.81-3.53 1.82-.78.9-1.46 2.34-1.28 3.72 1.35.1 2.72-.69 3.56-1.7z"/></svg>
+              <span><small data-i18n="comingTo">Незабаром у</small><b>App Store</b></span>
+            </a>
+            <span class="cap">iOS · iPadOS</span>
+          </div>
+          <div class="appcard">
+            <div class="qr-wrap">
+              <div class="qr" id="qr-and" aria-hidden="true"></div>
+              <div class="qr-badge"><span data-i18n="soon">Скоро</span></div>
+            </div>
+            <a class="store" href="#">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D3FF" d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 2.3z"/><path fill="#FFCE00" d="M16 15.2l-3-3v-.2l3-3 .1.1 3.6 2.1c1 .6 1 1.6 0 2.2L16 15.2z"/><path fill="#FF3D3D" d="M16.1 15.1L13 12 3.6 21.7c.4.4 1 .4 1.6.1l10.9-6.7z"/><path fill="#00D856" d="M16.1 8.9L5.2 2.2c-.6-.3-1.2-.3-1.6.1L13 12l3.1-3.1z"/></svg>
+              <span><small data-i18n="comingTo">Незабаром у</small><b>Google Play</b></span>
+            </a>
+            <span class="cap">Android</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <img class="flogo" src="assets/main_logo.png" alt="KidReady" />
+    <p data-i18n="footRights">© 2026 KidReady. Усі права захищено.</p>
+    <p>
+      <a href="privacy.html" data-i18n="footPrivacy">Політика конфіденційності</a> ·
+      <a href="terms.html" data-i18n="footTerms">Умови використання</a> ·
+      <a href="mailto:support@kidready.com.ua" data-i18n="footSupport">Підтримка</a>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
