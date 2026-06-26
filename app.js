@@ -42,7 +42,7 @@
       collText: "Що більше справ виконано — то більше зірок і нових Редіків у колекції.",
       stat1n: "5", stat1l: "Редіків зібрати",
       stat2n: "2", stat2l: "мови (UA/EN)",
-      stat3n: "0₴", stat3l: "назавжди",
+      stat3n: "0₴", stat3l: "Безкоштовно",
 
       privEyebrow: "Спокій батьків",
       privTitle: "Безпечно для дітей",
@@ -96,7 +96,7 @@
       collText: "The more tasks done — the more stars and new Rediks in the collection.",
       stat1n: "5", stat1l: "Rediks to collect",
       stat2n: "2", stat2l: "languages (UA/EN)",
-      stat3n: "$0", stat3l: "forever",
+      stat3n: "$0", stat3l: "Free",
 
       privEyebrow: "Peace of mind",
       privTitle: "Safe for kids",
