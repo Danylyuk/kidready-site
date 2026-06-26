@@ -134,6 +134,17 @@
     });
     document.querySelectorAll("#lang button").forEach((b) =>
       b.classList.toggle("active", b.dataset.lang === l));
+    updateScreens();
+  }
+
+  // шлях до скріна з урахуванням мови (EN-скріни лежать у screens/en/)
+  function screenPath(base) {
+    return "assets/screens/" + (LANG === "en" ? "en/" : "") + base + ".png";
+  }
+  function updateScreens() {
+    document.querySelectorAll("img[data-scr]").forEach((img) => {
+      img.src = screenPath(img.dataset.scr);
+    });
   }
 
   function initLang() {
@@ -177,8 +188,12 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting && e.intersectionRatio > 0.5) {
-          const src = e.target.dataset.screen;
-          if (src && phoneImg.getAttribute("src") !== src) phoneImg.src = src;
+          const base = e.target.dataset.scr;
+          if (base) {
+            phoneImg.dataset.scr = base; // запамʼятати поточний (для зміни мови)
+            const src = screenPath(base);
+            if (phoneImg.getAttribute("src") !== src) phoneImg.src = src;
+          }
         }
       });
     }, { threshold: [0.5] });
