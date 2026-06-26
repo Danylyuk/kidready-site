@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>KidReady — Видалення акаунта / Account Deletion</title>
+  <meta name="description" content="Як видалити акаунт і дані KidReady / How to delete your KidReady account and data" />
+  <link rel="icon" type="image/png" href="assets/main_logo.png">
+  <link rel="apple-touch-icon" href="assets/main_logo.png">
+  <style>
+    :root{ --brand:#f59e0b; --text:#121212; --muted:#6b7280; --bg:#fff; --radius:16px; }
+    *{box-sizing:border-box}
+    html,body{margin:0; background:var(--bg); color:var(--text);
+      font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;}
+    .wrap{ width:min(800px,92vw); margin:0 auto; padding:40px 0 64px; }
+    .logo{ display:block; width:96px; height:auto; margin:8px auto 24px; }
+    h1{ color:var(--brand); font-size:clamp(28px,5vw,40px); text-align:center; margin:0 0 6px; }
+    h2{ color:var(--brand); font-size:clamp(20px,3vw,26px); margin:38px 0 10px; }
+    h3{ font-size:18px; margin:22px 0 6px; }
+    p,li{ color:#1f2937; }
+    a{ color:var(--brand); }
+    .muted{ color:var(--muted); text-align:center; margin:0 0 8px; }
+    .steps{ counter-reset:step; list-style:none; padding-left:0; }
+    .steps li{ position:relative; padding:6px 0 6px 40px; margin:4px 0; }
+    .steps li::before{ counter-increment:step; content:counter(step); position:absolute; left:0; top:6px;
+      width:26px; height:26px; border-radius:50%; background:var(--brand); color:#fff; font-weight:800;
+      display:flex; align-items:center; justify-content:center; font-size:14px; }
+    .card{ background:#fff7ec; border:1px solid #fde2b3; border-radius:var(--radius); padding:16px 20px; margin:18px 0; }
+    .sep{ height:1px; background:#eee; margin:48px 0; border:0; }
+    footer{ text-align:center; color:var(--muted); padding:24px 0; }
+    .back{ display:block; text-align:center; margin-top:28px; }
+    .langsw{ position:fixed; top:14px; right:16px; z-index:20; display:flex; gap:2px;
+      background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:3px; box-shadow:0 10px 30px rgba(0,0,0,.08); }
+    .langsw button{ border:0; background:transparent; color:var(--muted); font-weight:800; font-size:13px;
+      padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .langsw button.active{ background:var(--brand); color:#fff; }
+    #en{ display:none; }
+  </style>
+</head>
+<body>
+  <div class="langsw" id="langsw">
+    <button data-lang="uk" type="button">UA</button>
+    <button data-lang="en" type="button">EN</button>
+  </div>
+  <div class="wrap">
+    <a href="index.html" aria-label="KidReady — на головну"><img class="logo" src="assets/main_logo.png" alt="KidReady" /></a>
+
+    <!-- ================= УКРАЇНСЬКА ================= -->
+    <section id="uk">
+      <h1>Видалення акаунта та даних</h1>
+      <p class="muted">KidReady · Оновлено: 26 червня 2026 р.</p>
+
+      <p>Ви можете будь-коли видалити свій акаунт KidReady разом з усіма пов'язаними даними. Видалення є <strong>остаточним і безповоротним</strong>.</p>
+
+      <h2>Спосіб 1. Просто в застосунку (рекомендовано)</h2>
+      <ol class="steps">
+        <li>Відкрийте застосунок <strong>KidReady</strong> і увійдіть у свій акаунт.</li>
+        <li>Перейдіть у <strong>Налаштування</strong> (значок ⚙️ у шапці).</li>
+        <li>У розділі <strong>«Акаунт»</strong> натисніть <strong>«Видалити акаунт»</strong>.</li>
+        <li>Підтвердьте видалення. Акаунт і всі дані буде видалено негайно.</li>
+      </ol>
+
+      <h2>Спосіб 2. На запит електронною поштою</h2>
+      <p>Якщо ви не маєте доступу до застосунку, напишіть нам із вашої зареєстрованої адреси на
+      <a href="mailto:support@kidready.com.ua?subject=Видалення%20акаунта%20KidReady">support@kidready.com.ua</a>
+      із темою «Видалення акаунта». Ми обробимо запит і видалимо ваш акаунт упродовж <strong>30 днів</strong>.</p>
+
+      <h2>Які дані видаляються</h2>
+      <p>Видаляються <strong>повністю та назавжди</strong>:</p>
+      <ul>
+        <li>обліковий запис (електронна адреса батьків);</li>
+        <li>профілі родини та дітей (імена, вік, фото-аватарки);</li>
+        <li>завдання, доручення, розклад, винагороди та зароблені зірки;</li>
+        <li>токени пуш-сповіщень.</li>
+      </ul>
+      <div class="card">
+        <strong>Період зберігання:</strong> після видалення дані не зберігаються. Резервні копії, якщо такі існують, остаточно очищаються впродовж 90 днів.
+      </div>
+      <p>Якщо ваша родина має кількох дорослих, видалення вашого акаунта не видаляє акаунти інших членів родини.</p>
+
+      <h2>Контакти</h2>
+      <p>Питання щодо видалення: <a href="mailto:support@kidready.com.ua">support@kidready.com.ua</a></p>
+    </section>
+
+    <!-- ================= ENGLISH ================= -->
+    <section id="en">
+      <h1>Account &amp; Data Deletion</h1>
+      <p class="muted">KidReady · Updated: June 26, 2026</p>
+
+      <p>You can delete your KidReady account and all associated data at any time. Deletion is <strong>permanent and irreversible</strong>.</p>
+
+      <h2>Option 1. In the app (recommended)</h2>
+      <ol class="steps">
+        <li>Open the <strong>KidReady</strong> app and sign in to your account.</li>
+        <li>Go to <strong>Settings</strong> (the ⚙️ icon in the header).</li>
+        <li>In the <strong>“Account”</strong> section tap <strong>“Delete account”</strong>.</li>
+        <li>Confirm. Your account and all data are deleted immediately.</li>
+      </ol>
+
+      <h2>Option 2. By email request</h2>
+      <p>If you cannot access the app, email us from your registered address at
+      <a href="mailto:support@kidready.com.ua?subject=KidReady%20Account%20Deletion">support@kidready.com.ua</a>
+      with the subject “Account deletion”. We will process the request and delete your account within <strong>30 days</strong>.</p>
+
+      <h2>What data is deleted</h2>
+      <p>The following is deleted <strong>completely and permanently</strong>:</p>
+      <ul>
+        <li>your account (parent email address);</li>
+        <li>family and children profiles (names, age, photo avatars);</li>
+        <li>tasks, chores, schedule, rewards and earned stars;</li>
+        <li>push notification tokens.</li>
+      </ul>
+      <div class="card">
+        <strong>Retention:</strong> no data is retained after deletion. Backups, if any, are permanently purged within 90 days.
+      </div>
+      <p>If your family has more than one adult, deleting your account does not delete the accounts of other family members.</p>
+
+      <h2>Contact</h2>
+      <p>Deletion questions: <a href="mailto:support@kidready.com.ua">support@kidready.com.ua</a></p>
+    </section>
+
+    <a class="back" href="index.html">← KidReady</a>
+    <footer>© 2026 KidReady. Усі права захищено. / All rights reserved.</footer>
+  </div>
+  <script>
+    (function(){
+      let lang = localStorage.getItem('kr_lang') ||
+        ((navigator.language||'uk').toLowerCase().startsWith('uk') ? 'uk' : 'en');
+      function apply(l){
+        lang = l; localStorage.setItem('kr_lang', l);
+        document.documentElement.lang = l;
+        document.getElementById('uk').style.display = l === 'uk' ? 'block' : 'none';
+        document.getElementById('en').style.display = l === 'en' ? 'block' : 'none';
+        document.querySelectorAll('#langsw button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+      }
+      document.querySelectorAll('#langsw button').forEach(b =>
+        b.addEventListener('click', () => apply(b.dataset.lang)));
+      apply(lang);
+    })();
+  </script>
+</body>
+</html>
