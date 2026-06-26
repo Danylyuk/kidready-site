@@ -56,7 +56,7 @@
       soon: "Скоро", comingTo: "Незабаром у",
 
       footRights: "© 2026 KidReady. Усі права захищено.",
-      footPrivacy: "Політика конфіденційності", footTerms: "Умови використання", footSupport: "Підтримка",
+      footPrivacy: "Політика конфіденційності", footTerms: "Умови використання", footDelete: "Видалення акаунта", footSupport: "Підтримка",
     },
     en: {
       metaDesc: "KidReady — a family app that makes a child's school routine simple: tasks, stars, rewards, schedule and calendar. Free, no ads.",
@@ -110,7 +110,7 @@
       soon: "Soon", comingTo: "Coming soon to",
 
       footRights: "© 2026 KidReady. All rights reserved.",
-      footPrivacy: "Privacy Policy", footTerms: "Terms of Use", footSupport: "Support",
+      footPrivacy: "Privacy Policy", footTerms: "Terms of Use", footDelete: "Delete Account", footSupport: "Support",
     },
   };
 
