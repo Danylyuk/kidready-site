@@ -147,6 +147,7 @@ section{padding:clamp(56px,9vw,110px) 0}
 .qr{width:100%;aspect-ratio:1;border-radius:20px;background:#fffdf9;padding:14px;
   box-shadow:var(--shadow-soft);overflow:hidden;border:1px solid #f1e4cf}
 .qr svg{width:100%;height:100%;display:block;filter:blur(3px);opacity:.5}
+img.qr{display:block;object-fit:contain}
 .qr-badge{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
 .qr-badge span{background:var(--brand);color:#fff;font-weight:900;font-size:13px;
   letter-spacing:.06em;text-transform:uppercase;padding:8px 16px;border-radius:999px;

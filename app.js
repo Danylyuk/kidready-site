@@ -53,7 +53,7 @@
       ctaEyebrow: "Готові спробувати?",
       ctaTitle: "Завантажте KidReady",
       ctaText: "Безкоштовно для iOS та Android. Скануй QR або тисни кнопку магазину.",
-      soon: "Скоро", comingTo: "Незабаром у",
+      soon: "Скоро", comingTo: "Незабаром у", getOn: "Завантажити в",
 
       footRights: "© 2026 KidReady. Усі права захищено.",
       footPrivacy: "Політика конфіденційності", footTerms: "Умови використання", footDelete: "Видалення акаунта", footSupport: "Підтримка",
@@ -107,7 +107,7 @@
       ctaEyebrow: "Ready to try?",
       ctaTitle: "Download KidReady",
       ctaText: "Free for iOS and Android. Scan the QR or tap the store button.",
-      soon: "Soon", comingTo: "Coming soon to",
+      soon: "Soon", comingTo: "Coming soon to", getOn: "Download on",
 
       footRights: "© 2026 KidReady. All rights reserved.",
       footPrivacy: "Privacy Policy", footTerms: "Terms of Use", footDelete: "Delete Account", footSupport: "Support",
@@ -257,9 +257,8 @@
     return r + `</svg>`;
   }
   function initQR() {
-    const ios = document.getElementById("qr-ios");
+    // iOS QR — справжній (assets/qr-ios.png у розмітці). Фейковий лишився лише в Android (ще в рев'ю).
     const and = document.getElementById("qr-and");
-    if (ios) ios.innerHTML = fakeQR(20260626);
     if (and) and.innerHTML = fakeQR(99887766);
   }
 
