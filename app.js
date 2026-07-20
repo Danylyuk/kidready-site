@@ -237,31 +237,6 @@
     }, { passive: true });
   }
 
-  // ---------- Фейкові заблюрені QR (м'які, світлі) ----------
-  function fakeQR(seed) {
-    const N = 25, cell = 100 / N;
-    let s = seed >>> 0;
-    const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
-    let r = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#fffdf9"/>`;
-    const finder = (x, y) => {
-      r += `<rect x="${x * cell}" y="${y * cell}" width="${7 * cell}" height="${7 * cell}" fill="#9aa1ab"/>`;
-      r += `<rect x="${(x + 1) * cell}" y="${(y + 1) * cell}" width="${5 * cell}" height="${5 * cell}" fill="#fffdf9"/>`;
-      r += `<rect x="${(x + 2) * cell}" y="${(y + 2) * cell}" width="${3 * cell}" height="${3 * cell}" fill="#9aa1ab"/>`;
-    };
-    const inF = (i, j) => (i < 8 && j < 8) || (i < 8 && j >= N - 8) || (i >= N - 8 && j < 8);
-    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
-      if (inF(i, j)) continue;
-      if (rnd() > 0.5) r += `<rect x="${i * cell}" y="${j * cell}" width="${cell}" height="${cell}" fill="#9aa1ab"/>`;
-    }
-    finder(0, 0); finder(N - 7, 0); finder(0, N - 7);
-    return r + `</svg>`;
-  }
-  function initQR() {
-    // iOS QR — справжній (assets/qr-ios.png у розмітці). Фейковий лишився лише в Android (ще в рев'ю).
-    const and = document.getElementById("qr-and");
-    if (and) and.innerHTML = fakeQR(99887766);
-  }
-
   // ---------- init ----------
   document.addEventListener("DOMContentLoaded", () => {
     initLang();
@@ -269,6 +244,5 @@
     initStickyPhone();
     initCountUp();
     initParallax();
-    initQR();
   });
 })();
